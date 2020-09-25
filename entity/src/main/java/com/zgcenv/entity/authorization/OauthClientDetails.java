@@ -1,6 +1,7 @@
 package com.zgcenv.entity.authorization;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @ClassName OauthClientDetails
@@ -11,7 +12,7 @@ import javax.persistence.*;
  **/
 @Entity
 @Table(name = "oauth_client_details", schema = "cloud", catalog = "")
-public class OauthClientDetails {
+public class OauthClientDetails implements Serializable {
     private String clientId;
     private String resourceIds;
     private String clientSecret;

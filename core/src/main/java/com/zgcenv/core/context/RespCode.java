@@ -12,8 +12,8 @@ import lombok.Getter;
 @Getter
 public enum RespCode {
 
-    SUCCESS(0, "成功"),
-    SYSTEM_BUSY(-1, "系统繁忙~请稍后再试~"),
+    SUCCESS(100000, "成功"),
+    SYSTEM_BUSY(-1, "系统繁忙,请稍候再试"),
     SYSTEM_TIMEOUT(-2, "系统维护中~请稍后再试~"),
     PARAM_EX(-3, "参数类型解析异常"),
     SQL_EX(-4, "运行SQL出现异常"),
@@ -26,6 +26,13 @@ public enum RespCode {
     SERVICE_MAPPER_ERROR(-11, "Mapper类转换异常"),
     CAPTCHA_ERROR(-12, "验证码校验失败"),
     JSON_PARSE_ERROR(-13, "JSON解析异常"),
+
+    GATEWAY_NOT_FOUND_SERVICE(10404, "服务未找到"),
+    GATEWAY_ERROR(10500, "网关异常"),
+    GATEWAY_CONNECT_TIME_OUT(10002, "网关超时"),
+    ARGUMENT_NOT_VALID(10000, "请求参数校验不通过"),
+    UPLOAD_FILE_SIZE_LIMIT(10002, "上传文件大小超过限制"),
+    DUPLICATE_PRIMARY_KEY(10003, "唯一键冲突"),
 
     OK(200, "OK"),
     BAD_REQUEST(400, "错误的请求"),

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * @ClassName OauthAccessToken
@@ -19,7 +20,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @Table(name = "oauth_access_token")
-public class OauthAccessToken {
+public class OauthAccessToken implements Serializable {
 
     @Id
     @Column(name = "token_id")

@@ -1,6 +1,7 @@
 package com.zgcenv.entity.organization;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
  **/
 @Entity
 @Table(name = "user_position_relation", schema = "cloud", catalog = "")
-public class UserPositionRelation {
+public class UserPositionRelation implements Serializable {
     private String id;
     private String userId;
     private String positionId;

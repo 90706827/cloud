@@ -4,6 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -14,7 +15,7 @@ import java.sql.Timestamp;
  * @Version 1.0
  **/
 @Entity
-public class Position {
+public class Position implements Serializable {
     private String id;
     private String name;
     private String description;

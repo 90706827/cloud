@@ -67,7 +67,7 @@ public class Resp<T> implements Serializable {
      * 请求成功 无结果
      */
     public static <E> Resp<E> success() {
-        return new Resp<E>(true);
+        return new Resp<E>(true,RespCode.SUCCESS.getCode(),RespCode.SUCCESS.getMsg());
     }
 
     /**
@@ -77,6 +77,13 @@ public class Resp<T> implements Serializable {
      */
     public static <E> Resp<E> success(E result) {
         return new Resp<E>(true, result);
+    }
+
+    /**
+     * 系统异常
+     */
+    public static <E> Resp<E> fail() {
+        return new Resp<E>(false, RespCode.SYSTEM_BUSY.getCode(),RespCode.SYSTEM_BUSY.getMsg());
     }
 
     /**

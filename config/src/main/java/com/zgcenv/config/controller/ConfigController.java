@@ -35,4 +35,14 @@ public class ConfigController {
         logger.info(users.toString());
         return users;
     }
+    @GetMapping("/all")
+    public Resp<?> all() {
+        return userService.getAll();
+    }
+
+    @GetMapping("/user")
+    public Resp<?> user(@RequestParam("username") String username) {
+        return userService.getUser(username);
+    }
+
 }

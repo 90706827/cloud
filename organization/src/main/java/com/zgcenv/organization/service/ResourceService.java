@@ -4,6 +4,7 @@ import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.Cached;
 import com.zgcenv.entity.organization.Resource;
 import com.zgcenv.organization.dao.ResourceDao;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
+@Slf4j
 public class ResourceService {
     @javax.annotation.Resource
     private ResourceDao resourceDao;

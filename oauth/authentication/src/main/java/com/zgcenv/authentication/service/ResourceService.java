@@ -1,5 +1,7 @@
 package com.zgcenv.authentication.service;
 
+import com.alicp.jetcache.anno.CacheType;
+import com.alicp.jetcache.anno.Cached;
 import com.zgcenv.authentication.provider.ResourceProvider;
 import com.zgcenv.authentication.utils.NewMvcRequestMatcher;
 import com.zgcenv.core.context.Resp;
@@ -14,8 +16,8 @@ import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -55,11 +57,11 @@ public class ResourceService {
     }
 
     public synchronized void loadResource() {
-        Resp<Set<Resource>> resourcesResult = resourceProvider.resources();
-        if (resourcesResult.isSuccess()) {
+        Resp<List<Resource>> resourcesResult = resourceProvider.resources();
+        if (!resourcesResult.isSuccess()) {
             System.exit(1);
         }
-        Set<Resource> resources = resourcesResult.getResult();
+        List<Resource> resources = resourcesResult.getResult();
         Map<MvcRequestMatcher, SecurityConfig> tempResourceConfigAttributes = resources.stream()
                 .collect(Collectors.toMap(
                         resource -> this.newMvcRequestMatcher(resource.getUrl(), resource.getMethod()),
@@ -78,8 +80,8 @@ public class ResourceService {
                 .orElse(new SecurityConfig("NONEXISTENT_URL"));
     }
 
-//    @Cached(name = "resource4user::", key = "#username", cacheType = CacheType.LOCAL)
-    public Set<Resource> queryByUsername(String username) {
+    @Cached(name = "resource4user::", key = "#username", cacheType = CacheType.LOCAL)
+    public List<Resource> queryByUsername(String username) {
         return resourceProvider.resources(username).getResult();
     }
 

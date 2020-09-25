@@ -9,7 +9,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Set;
+import java.util.List;
 
 /**
  * @ClassName AuthenticationService
@@ -44,7 +44,7 @@ public class AuthenticationService {
         if (NONEXISTENT_URL.equals(urlConfigAttribute.getAttribute()))
             log.debug("url未在资源池中找到，拒绝访问");
         //获取此访问用户所有角色拥有的权限资源
-        Set<Resource> userResources = findResourcesByUsername(authentication.getName());
+        List<Resource> userResources = findResourcesByUsername(authentication.getName());
         //用户拥有权限资源 与 url要求的资源进行对比
         return isMatch(urlConfigAttribute, userResources);
     }
@@ -56,7 +56,7 @@ public class AuthenticationService {
      * @param userResources
      * @return
      */
-    public boolean isMatch(ConfigAttribute urlConfigAttribute, Set<Resource> userResources) {
+    public boolean isMatch(ConfigAttribute urlConfigAttribute, List<Resource> userResources) {
         return userResources.stream().anyMatch(resource -> resource.getCode().equals(urlConfigAttribute.getAttribute()));
     }
 
@@ -66,9 +66,9 @@ public class AuthenticationService {
      * @param username
      * @return
      */
-    private Set<Resource> findResourcesByUsername(String username) {
+    private List<Resource> findResourcesByUsername(String username) {
         //用户被授予的角色资源
-        Set<Resource> resources = resourceService.queryByUsername(username);
+        List<Resource> resources = resourceService.queryByUsername(username);
         if (log.isDebugEnabled()) {
             log.debug("用户被授予角色的资源数量是:{}, 资源集合信息为:{}", resources.size(), resources);
         }

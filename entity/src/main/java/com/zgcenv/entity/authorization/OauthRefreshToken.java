@@ -1,6 +1,7 @@
 package com.zgcenv.entity.authorization;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
  **/
 @Entity
 @Table(name = "oauth_refresh_token", schema = "cloud", catalog = "")
-public class OauthRefreshToken {
+public class OauthRefreshToken implements Serializable {
     private String tokenId;
     private byte[] token;
     private byte[] authentication;

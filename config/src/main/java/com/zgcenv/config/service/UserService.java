@@ -2,10 +2,11 @@ package com.zgcenv.config.service;
 
 import com.zgcenv.config.provider.OrganizationProvider;
 import com.zgcenv.core.context.Resp;
+import com.zgcenv.entity.organization.Resource;
 import com.zgcenv.entity.organization.Users;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName UserService
@@ -17,7 +18,7 @@ import javax.annotation.Resource;
 @Service
 public class UserService {
 
-    @Resource
+    @javax.annotation.Resource
     private OrganizationProvider organizationProvider;
 
     public Resp<Users> findUserByUsername(String username)
@@ -26,4 +27,11 @@ public class UserService {
         return organizationProvider.findUserByUsername(username);
     }
 
+    public Resp<List<Resource>> getAll(){
+        return organizationProvider.resources();
+    }
+
+    public Resp<List<Resource>> getUser(String username){
+        return organizationProvider.resources(username);
+    }
 }

@@ -1,6 +1,7 @@
 package com.zgcenv.entity.authorization;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
@@ -12,7 +13,7 @@ import java.sql.Timestamp;
  **/
 @Entity
 @Table(name = "oauth_approvals", schema = "cloud", catalog = "")
-public class OauthApprovals {
+public class OauthApprovals implements Serializable {
     private String userid;
     private String clientid;
     private String scope;

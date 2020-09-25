@@ -8,11 +8,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @ClassName ResourceController
@@ -31,10 +32,11 @@ public class ResourceController {
     @Resource
     private ResourceService resourceService;
 
-    @GetMapping(value = "/user/{username}")
-    public Resp queryByUsername(@PathVariable String username) {
+    @GetMapping(value = "/user")
+    public Resp queryByUsername(@RequestParam String username) {
         log.debug("query with username:{}", username);
-        return Resp.success(resourceService.findResourceByUsername(username));
+        List<com.zgcenv.entity.organization.Resource> list =resourceService.findResourceByUsername(username);
+        return Resp.success(list);
     }
 
     @ApiOperation(value = "查询所有资源", notes = "查询所有资源信息")
@@ -43,6 +45,7 @@ public class ResourceController {
     )
     @GetMapping(value = "/all")
     public Resp queryAll() {
+        log.debug("query with all");
         return Resp.success(resourceService.findAll());
     }
 }

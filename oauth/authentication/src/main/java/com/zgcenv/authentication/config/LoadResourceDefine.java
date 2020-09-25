@@ -1,6 +1,7 @@
 package com.zgcenv.authentication.config;
 
 import com.zgcenv.authentication.service.ResourceService;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -13,8 +14,9 @@ import javax.annotation.Resource;
  * @Date 2020-9-23
  * @Version 1.0
  **/
+@Order(2147483647)
 @Component
-class LoadResourceDefine {
+class LoadResourceDefine{
 
     @Resource
     private ResourceService resourceService;
@@ -28,4 +30,5 @@ class LoadResourceDefine {
     public void resourceConfigAttributes() {
         resourceService.loadResource();
     }
+
 }

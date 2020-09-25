@@ -1,6 +1,7 @@
 package com.zgcenv.entity.authorization;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
@@ -12,7 +13,7 @@ import java.util.Arrays;
  **/
 @Entity
 @Table(name = "oauth_code", schema = "cloud", catalog = "")
-public class OauthCode {
+public class OauthCode implements Serializable {
     private String code;
     private byte[] authentication;
 

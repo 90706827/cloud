@@ -32,7 +32,7 @@ import java.net.UnknownHostException;
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.zgcenv.organization.dao")
 @EntityScan("com.zgcenv.entity.organization")
-@EnableMethodCache(basePackages = "com.springboot.cloud")
+@EnableMethodCache(basePackages = "com.zgcenv.organization")
 @EnableCreateCacheAnnotation
 public class OrganizationApplication {
 
