@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
 @ApiModel
-@Slf4j
+
 @Data
 public class BaseQueryForm<P> extends BaseForm {
     /**

@@ -1,7 +1,6 @@
 package com.zgcenv.gateway.web.routes;
 
 import com.zgcenv.gateway.web.service.RouteService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.stereotype.Component;
@@ -11,7 +10,7 @@ import reactor.core.publisher.Mono;
 import javax.annotation.Resource;
 
 @Component
-@Slf4j
+
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
     @Resource
@@ -19,6 +18,7 @@ public class RedisRouteDefinitionRepository implements RouteDefinitionRepository
 
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
+
         return Flux.fromIterable(routeService.getRouteDefinitions());
     }
 

@@ -9,7 +9,8 @@ import com.zgcenv.entity.gateway.GatewayRoute;
 import com.zgcenv.gateway.admin.config.BusConfig;
 import com.zgcenv.gateway.admin.config.EventSender;
 import com.zgcenv.gateway.admin.dao.GatewayRouteDao;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
@@ -29,8 +30,10 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-@Slf4j
+
 public class GatewayRouteService {
+    private static final Logger log = LoggerFactory.getLogger(GatewayRouteService.class);
+
     private static final String GATEWAY_ROUTES = "gateway_routes::";
 
     @CreateCache(name = GATEWAY_ROUTES, cacheType = CacheType.REMOTE)

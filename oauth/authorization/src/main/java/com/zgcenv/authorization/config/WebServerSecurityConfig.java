@@ -16,7 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.annotation.Resource;
 
-@Slf4j
+
 @Configuration
 @EnableWebSecurity
 public class WebServerSecurityConfig extends WebSecurityConfigurerAdapter {

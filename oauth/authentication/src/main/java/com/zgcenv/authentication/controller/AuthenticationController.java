@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
  **/
 @RestController
 @Api("auth")
-@Slf4j
+
 public class AuthenticationController {
 
     @Resource

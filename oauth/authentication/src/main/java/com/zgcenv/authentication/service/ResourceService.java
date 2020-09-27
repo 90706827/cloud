@@ -6,7 +6,8 @@ import com.zgcenv.authentication.provider.ResourceProvider;
 import com.zgcenv.authentication.utils.NewMvcRequestMatcher;
 import com.zgcenv.core.context.Resp;
 import com.zgcenv.entity.organization.Resource;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
@@ -29,8 +30,9 @@ import java.util.stream.Collectors;
  **/
 
 @Service
-@Slf4j
+
 public class ResourceService {
+    private static final Logger log = LoggerFactory.getLogger(ResourceService.class);
 
     @javax.annotation.Resource
     private HandlerMappingIntrospector mvcHandlerMappingIntrospector;

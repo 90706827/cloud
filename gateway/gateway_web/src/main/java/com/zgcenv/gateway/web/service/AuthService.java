@@ -3,8 +3,9 @@ package com.zgcenv.gateway.web.service;
 import com.zgcenv.core.context.Resp;
 import com.zgcenv.gateway.web.provider.AuthProvider;
 import io.jsonwebtoken.*;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +13,9 @@ import javax.annotation.Resource;
 import java.util.stream.Stream;
 
 @Service
-@Slf4j
+
 public class AuthService {
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
     /**
      * Authorization认证开头是"bearer "
      */

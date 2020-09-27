@@ -4,13 +4,12 @@ import com.zgcenv.core.context.Resp;
 import com.zgcenv.core.context.RespCode;
 import com.zgcenv.entity.organization.Resource;
 import com.zgcenv.entity.organization.Users;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @ClassName OrganizationProviderFallback
@@ -20,8 +19,9 @@ import java.util.Set;
  * @Version 1.0
  **/
 @Component
-@Slf4j
+
 public class OrganizationProviderFallback implements OrganizationProvider {
+    private static final Logger log = LoggerFactory.getLogger(OrganizationProviderFallback.class);
 
     @Override
     public Resp<Users> findUserByUsername(String username) {

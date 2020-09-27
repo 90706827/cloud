@@ -5,7 +5,8 @@ import com.zgcenv.entity.gateway.GatewayRoute;
 import com.zgcenv.gateway.admin.entity.GatewayRouteForm;
 import com.zgcenv.gateway.admin.service.GatewayRouteService;
 import io.swagger.annotations.*;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -22,8 +23,9 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/gateway/routes")
 @Api("gateway routes")
-@Slf4j
+
 public class RouteController {
+    private static final Logger log = LoggerFactory.getLogger(RouteController.class);
     @Resource
     private GatewayRouteService gatewayRoutService;
 

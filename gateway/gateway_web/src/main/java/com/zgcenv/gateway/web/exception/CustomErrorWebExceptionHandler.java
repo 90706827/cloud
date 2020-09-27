@@ -1,6 +1,5 @@
 package com.zgcenv.gateway.web.exception;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.web.ErrorProperties;
 import org.springframework.boot.autoconfigure.web.ResourceProperties;
@@ -15,7 +14,7 @@ import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
-@Slf4j
+
 public class CustomErrorWebExceptionHandler extends DefaultErrorWebExceptionHandler {
 
     @Autowired

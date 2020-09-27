@@ -11,7 +11,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.zgcenv.core.context.RespCode;
 import com.zgcenv.core.exception.BizException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,8 +28,9 @@ import static com.zgcenv.core.utils.DateUtils.DEFAULT_DATE_TIME_FORMAT;
  *
  * @author zuihou
  */
-@Slf4j
+
 public class JsonUtil {
+    private static final Logger log = LoggerFactory.getLogger(JsonUtil.class);
 
     public static <T> String toJson(T value) {
         try {

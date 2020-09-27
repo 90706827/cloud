@@ -1,7 +1,8 @@
 package com.zgcenv.authentication.service;
 
 import com.zgcenv.entity.organization.Resource;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.core.Authentication;
@@ -20,8 +21,9 @@ import java.util.List;
  **/
 
 @Service
-@Slf4j
+
 public class AuthenticationService {
+    private static final Logger log = LoggerFactory.getLogger(AuthenticationService.class);
 
     /**
      * 未在资源库中的URL默认标识

@@ -1,6 +1,7 @@
 package com.zgcenv.authentication.config;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,10 +20,11 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
  * @Date 2020-9-23
  * @Version 1.0
  **/
-@Slf4j
+
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
+    private static final Logger log = LoggerFactory.getLogger(ResourceServerConfig.class);
 
     @Value("${spring.security.oauth2.jwt.signingKey}")
     private String signingKey;

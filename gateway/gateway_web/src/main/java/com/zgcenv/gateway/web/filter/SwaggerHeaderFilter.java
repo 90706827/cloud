@@ -1,18 +1,21 @@
 package com.zgcenv.gateway.web.filter;
 
 import com.zgcenv.gateway.web.config.SwaggerProvider;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-//@Component
-@Slf4j
+@Component
+
 public class SwaggerHeaderFilter implements GlobalFilter, Ordered {
+    private static final Logger log = LoggerFactory.getLogger(SwaggerHeaderFilter.class);
 
     private static final String HEADER_NAME = "X-Forwarded-Prefix";
 

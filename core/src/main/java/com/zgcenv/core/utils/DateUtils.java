@@ -2,7 +2,8 @@ package com.zgcenv.core.utils;
 
 import com.zgcenv.core.context.RespCode;
 import com.zgcenv.core.exception.BizException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -21,8 +22,10 @@ import java.util.stream.Stream;
  * @author zuihou
  * 修改时间：2018/4/24
  */
-@Slf4j
+
 public class DateUtils {
+    private static final Logger log = LoggerFactory.getLogger(DateUtils.class);
+
     public final static String DEFAULT_YEAR_FORMAT = "yyyy";
     public final static String DEFAULT_MONTH_FORMAT = "yyyy-MM";
     public final static String DEFAULT_MONTH_FORMAT_SLASH = "yyyy/MM";

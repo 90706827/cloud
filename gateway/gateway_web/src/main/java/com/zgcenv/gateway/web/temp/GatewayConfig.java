@@ -1,4 +1,4 @@
-package com.zgcenv.gateway.web.config;
+package com.zgcenv.gateway.web.temp;
 
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.RouteLocatorBuilder;

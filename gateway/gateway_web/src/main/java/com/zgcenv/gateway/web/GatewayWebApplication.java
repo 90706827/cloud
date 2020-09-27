@@ -2,7 +2,7 @@ package com.zgcenv.gateway.web;
 
 import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
 import com.alicp.jetcache.anno.config.EnableMethodCache;
-import com.zgcenv.gateway.web.config.GatewayConfig;
+import com.zgcenv.gateway.web.temp.GatewayConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;

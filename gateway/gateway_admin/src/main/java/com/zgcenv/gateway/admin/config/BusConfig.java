@@ -3,7 +3,8 @@ package com.zgcenv.gateway.admin.config;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
 import org.springframework.amqp.core.Queue;
@@ -15,8 +16,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@Slf4j
+
 public class BusConfig {
+    private static final Logger log = LoggerFactory.getLogger(BusConfig.class);
 
     public static final String QUEUE_NAME = "event-gateway";
     public static final String EXCHANGE_NAME = "spring-boot-exchange";

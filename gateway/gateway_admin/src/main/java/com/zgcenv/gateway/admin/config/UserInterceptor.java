@@ -2,8 +2,9 @@ package com.zgcenv.gateway.admin.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zgcenv.core.utils.UserContextHolder;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -14,8 +15,9 @@ import java.util.Map;
 /**
  * 用户信息拦截器
  */
-@Slf4j
+
 public class UserInterceptor implements HandlerInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(UserInterceptor.class);
     /**
      * 服务间调用token用户信息,格式为json
      * {

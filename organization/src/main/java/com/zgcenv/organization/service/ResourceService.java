@@ -17,7 +17,7 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-@Slf4j
+
 public class ResourceService {
     @javax.annotation.Resource
     private ResourceDao resourceDao;
