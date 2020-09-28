@@ -4,7 +4,6 @@ import com.zgcenv.authentication.service.AuthenticationService;
 import com.zgcenv.authentication.utils.HttpServletRequestAuthWrapper;
 import com.zgcenv.core.context.Resp;
 import io.swagger.annotations.*;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,7 +33,7 @@ public class AuthenticationController {
     })
     @ApiResponses(@ApiResponse(code = 200, message = "处理成功", response = Resp.class))
     @PostMapping(value = "/auth/permission")
-    public Resp decide(@RequestParam String url, @RequestParam String method, HttpServletRequest request) {
+    public Resp<?> decide(@RequestParam String url, @RequestParam String method, HttpServletRequest request) {
         boolean decide = authenticationService.decide(new HttpServletRequestAuthWrapper(request, url, method));
         return Resp.success(decide);
     }

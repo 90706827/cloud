@@ -37,7 +37,7 @@ public class AuthService {
     @Value("${gate.ignore.authentication.startWith}")
     private String ignoreUrls = "/oauth";
 
-    public Resp<?> authenticate(String authentication, String url, String method) {
+    public Resp<Boolean> authenticate(String authentication, String url, String method) {
         return authProvider.auth(authentication, url, method);
     }
 
@@ -45,9 +45,9 @@ public class AuthService {
         return Stream.of(this.ignoreUrls.split(",")).anyMatch(ignoreUrl -> url.startsWith(StringUtils.trim(ignoreUrl)));
     }
 
-    public boolean hasPermission(Resp authResult) {
+    public boolean hasPermission(Resp<Boolean> authResult) {
         log.debug("签权结果:{}", authResult.getResult());
-        return authResult.isSuccess() && (boolean) authResult.getResult();
+        return authResult.getSuccess() && (boolean) authResult.getResult();
     }
 
     public boolean hasPermission(String authentication, String url, String method) {

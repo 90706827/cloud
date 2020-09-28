@@ -1,4 +1,4 @@
-package com.zgcenv.config.configure;
+package com.zgcenv.gateway.web.config;
 
 import feign.codec.Decoder;
 import org.springframework.beans.BeansException;
@@ -17,10 +17,11 @@ import java.util.List;
 /**
  * @ClassName FeignConfig
  * @Description
- * @Author Mr.Jangni
- * @Date 2020-9-17
+ * @Author Mr.J
+ * @Date 2020/9/28 18:31
  * @Version 1.0
  **/
+
 @SpringBootConfiguration
 public class FeignConfig {
     @Bean
@@ -45,5 +46,4 @@ public class FeignConfig {
             setSupportedMediaTypes(mediaTypes);
         }
     }
-
 }

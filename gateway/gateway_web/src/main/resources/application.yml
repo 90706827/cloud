@@ -35,7 +35,7 @@ spring:
             key-resolver: "#{@apiKeyResolver}" #SPEL表达式去的对应的bean
 feign:
   hystrix:
-    enabled: false
+    enabled: true
 jetcache:
   statIntervalMinutes: 1
   areaInCacheName: false

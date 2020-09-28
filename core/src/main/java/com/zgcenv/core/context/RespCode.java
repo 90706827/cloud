@@ -76,7 +76,7 @@ public enum RespCode {
     UNSUPPORTED_RESPONSE_TYPE(40070, " 支持的响应类型"),
     UNSUPPORTED_GRANT_TYPE(40071, "不支持的授权类型");
 
-    private int code;
+    private Integer code;
     private String msg;
 
     RespCode(int code, String msg) {

@@ -25,13 +25,13 @@ import java.io.Serializable;
 public class Resp<T> implements Serializable {
 
     @ApiModelProperty(value = "请求状态")
-    private boolean success;
+    private Boolean success;
 
     @ApiModelProperty(value = "响应数据")
     private T result;
 
     @ApiModelProperty(value = "响应错误编码")
-    private int error;
+    private Integer error;
 
     @ApiModelProperty(value = "响应错误信息")
     private String error_description;
@@ -43,7 +43,7 @@ public class Resp<T> implements Serializable {
 
     @ApiModelProperty(value = "响应时间戳")
     @JsonIgnore
-    private long timestamp = System.currentTimeMillis();
+    private Long timestamp = System.currentTimeMillis();
 
     private Resp(boolean success) {
         this.success = success;
@@ -66,8 +66,8 @@ public class Resp<T> implements Serializable {
     /**
      * 请求成功 无结果
      */
-    public static <E> Resp<E> success() {
-        return new Resp<E>(true,RespCode.SUCCESS.getCode(),RespCode.SUCCESS.getMsg());
+    public static <T> Resp<T> success() {
+        return new Resp<T>(true, RespCode.SUCCESS.getCode(), RespCode.SUCCESS.getMsg());
     }
 
     /**
@@ -75,15 +75,15 @@ public class Resp<T> implements Serializable {
      *
      * @param result 结果
      */
-    public static <E> Resp<E> success(E result) {
-        return new Resp<E>(true, result);
+    public static <T> Resp<T> success(T result) {
+        return new Resp<T>(true, result);
     }
 
     /**
      * 系统异常
      */
-    public static <E> Resp<E> fail() {
-        return new Resp<E>(false, RespCode.SYSTEM_BUSY.getCode(),RespCode.SYSTEM_BUSY.getMsg());
+    public static <T> Resp<T> fail() {
+        return new Resp<T>(false, RespCode.SYSTEM_BUSY.getCode(), RespCode.SYSTEM_BUSY.getMsg());
     }
 
     /**
@@ -91,7 +91,8 @@ public class Resp<T> implements Serializable {
      *
      * @param respCode
      */
-    public static <E> Resp<E> fail(RespCode respCode) {
-        return new Resp<E>(false, respCode.getCode(), respCode.getMsg());
+    public static <T> Resp<T> fail(RespCode respCode) {
+        return new Resp<T>(false, respCode.getCode(), respCode.getMsg());
     }
+
 }

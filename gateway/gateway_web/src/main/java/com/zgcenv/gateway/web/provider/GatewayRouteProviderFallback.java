@@ -19,6 +19,17 @@ public class GatewayRouteProviderFallback implements GatewayRouteProvider {
 
     @Override
     public Resp<List<GatewayRoute>> routeAll() {
-        return Resp.success(new ArrayList<GatewayRoute>());
+        return Resp.success(new ArrayList<>());
     }
 }
+
+
+//public class GatewayRouteProviderFallback implements FallbackFactory<GatewayRouteProvider> {
+//    private final static Logger logger = LoggerFactory.getLogger(GatewayRouteProviderFallback.class);
+//
+//    @Override
+//    public GatewayRouteProvider create(Throwable cause) {
+//        logger.error(cause.getMessage());
+//        return () -> Resp.success(new ArrayList<>());
+//    }
+//}

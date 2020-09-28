@@ -52,7 +52,7 @@ public class AccessGatewayFilter implements GlobalFilter {
         ServerHttpRequest request = exchange.getRequest();
         String authentication = request.getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
         String method = request.getMethodValue();
-        String url = request.getURI().getPath();
+        String url = request.getPath().value();
         log.info("url:{},method:{},headers:{}", url, method, request.getHeaders());
         //不需要网关签权的url
         if(true){

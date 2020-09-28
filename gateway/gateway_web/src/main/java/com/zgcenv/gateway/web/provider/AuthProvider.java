@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(name = "authentication", fallback = AuthProviderFallback.class, path = "/authentication")
 public interface AuthProvider {
     @PostMapping(value = "/auth/permission")
-    Resp auth(@RequestHeader(HttpHeaders.AUTHORIZATION) String authentication,
+    Resp<Boolean> auth(@RequestHeader(HttpHeaders.AUTHORIZATION) String authentication,
               @RequestParam("url") String url,
               @RequestParam("method") String method);
 }
