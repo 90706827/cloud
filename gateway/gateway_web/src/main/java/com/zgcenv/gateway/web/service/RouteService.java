@@ -3,9 +3,16 @@ package com.zgcenv.gateway.web.service;
 import com.alicp.jetcache.Cache;
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.CreateCache;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zgcenv.core.context.Resp;
+import com.zgcenv.entity.gateway.GatewayRoute;
+import com.zgcenv.gateway.web.provider.GatewayRouteProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cloud.gateway.filter.FilterDefinition;
+import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -13,12 +20,10 @@ import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -30,12 +35,14 @@ import java.util.stream.Collectors;
  **/
 @Service
 public class RouteService {
-    private static final Logger logger =  LoggerFactory.getLogger(RouteService.class);
+    private static final Logger logger = LoggerFactory.getLogger(RouteService.class);
 
     private static final String GATEWAY_ROUTES = "gateway_routes::";
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+    @Resource
+    private GatewayRouteProvider gatewayRouteProvider;
 
     @CreateCache(name = GATEWAY_ROUTES, cacheType = CacheType.REMOTE)
     private Cache<String, RouteDefinition> gatewayRouteCache;
@@ -48,7 +55,14 @@ public class RouteService {
         Set<String> gatewayKeys = stringRedisTemplate.keys(GATEWAY_ROUTES + "*");
         if (CollectionUtils.isEmpty(gatewayKeys)) {
             logger.info("loadRouteDefinition, 缓存中没有数据");
-//            return;
+            Resp<List<GatewayRoute>> resp = gatewayRouteProvider.routeAll();
+            List<GatewayRoute> gatewayRoutes = resp.getResult();
+            gatewayRoutes.stream().forEach(gatewayRoute ->
+                    gatewayRouteCache.put(gatewayRoute.getRouteId(), gatewayRouteToRouteDefinition(gatewayRoute))
+            );
+            gatewayKeys = stringRedisTemplate.keys(GATEWAY_ROUTES + "*");
+            logger.info("全局初使化网关路由成功!{}",gatewayRoutes.size());
+
         }
         logger.info("预计初使化路由, gatewayKeys：{}", gatewayKeys);
         // 去掉key的前缀
@@ -83,5 +97,28 @@ public class RouteService {
         routeDefinitionMaps.remove(routeId);
         logger.info("删除路由1条：{},目前路由共{}条", routeId, routeDefinitionMaps.size());
         return true;
+    }
+
+    /**
+     * 将数据库中json对象转换为网关需要的RouteDefinition对象
+     *
+     * @param gatewayRoute
+     * @return RouteDefinition
+     */
+    private RouteDefinition gatewayRouteToRouteDefinition(GatewayRoute gatewayRoute) {
+        RouteDefinition routeDefinition = new RouteDefinition();
+        routeDefinition.setId(gatewayRoute.getRouteId());
+        routeDefinition.setOrder(gatewayRoute.getOrders());
+        routeDefinition.setUri(URI.create(gatewayRoute.getUri()));
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            routeDefinition.setFilters(objectMapper.readValue(gatewayRoute.getFilters(), new TypeReference<List<FilterDefinition>>() {
+            }));
+            routeDefinition.setPredicates(objectMapper.readValue(gatewayRoute.getPredicates(), new TypeReference<List<PredicateDefinition>>() {
+            }));
+        } catch (IOException e) {
+            logger.error("网关路由对象转换失败", e);
+        }
+        return routeDefinition;
     }
 }

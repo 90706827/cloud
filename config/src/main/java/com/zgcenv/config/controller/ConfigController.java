@@ -40,6 +40,10 @@ public class ConfigController {
         return userService.getAll();
     }
 
+    @GetMapping("/route/all")
+    public Resp<?> routeAll() {
+        return userService.getRouteAll();
+    }
     @GetMapping("/user")
     public Resp<?> user(@RequestParam("username") String username) {
         return userService.getUser(username);

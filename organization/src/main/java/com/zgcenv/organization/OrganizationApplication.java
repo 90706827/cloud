@@ -31,7 +31,7 @@ import java.net.UnknownHostException;
 @SpringBootApplication
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.zgcenv.organization.dao")
-@EntityScan("com.zgcenv.entity.organization")
+@EntityScan(basePackages = {"com.zgcenv.entity.organization", "com.zgcenv.entity.gateway"})
 @EnableMethodCache(basePackages = "com.zgcenv.organization")
 @EnableCreateCacheAnnotation
 public class OrganizationApplication {
@@ -59,8 +59,8 @@ public class OrganizationApplication {
     private String test;
 
     @PostConstruct
-    public void testConfig(){
-        logger.info("\n---------------------\n----test:{}\n---------------------",test);
+    public void testConfig() {
+        logger.info("\n---------------------\n----test:{}\n---------------------", test);
     }
 
     @RequestMapping("/test")

@@ -34,12 +34,8 @@ spring:
             rate-limiter: "#{@defaultRedisRateLimiter}"  #SPEL表达式去的对应的bean
             key-resolver: "#{@apiKeyResolver}" #SPEL表达式去的对应的bean
 feign:
-  sentinel:
-    enabled: true
-  httpclient:
+  hystrix:
     enabled: false
-  okhttp:
-    enabled: true
 jetcache:
   statIntervalMinutes: 1
   areaInCacheName: false

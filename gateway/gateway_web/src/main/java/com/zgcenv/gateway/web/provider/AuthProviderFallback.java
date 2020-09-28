@@ -1,8 +1,9 @@
 package com.zgcenv.gateway.web.provider;
 
 import com.zgcenv.core.context.Resp;
-import com.zgcenv.core.context.RespCode;
 import org.springframework.stereotype.Component;
+
+import java.util.ArrayList;
 
 /**
  * @ClassName AuthProviderFallback
@@ -14,11 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class AuthProviderFallback implements AuthProvider {
-    /**
-     * 降级统一返回无权限
-     */
     @Override
     public Resp auth(String authentication, String url, String method) {
-        return Resp.fail(RespCode.SYSTEM_BUSY);
+        return Resp.success(new ArrayList<>());
     }
 }

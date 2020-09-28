@@ -2,6 +2,7 @@ package com.zgcenv.config.provider;
 
 import com.zgcenv.core.context.Resp;
 import com.zgcenv.core.context.RespCode;
+import com.zgcenv.entity.gateway.GatewayRoute;
 import com.zgcenv.entity.organization.Resource;
 import com.zgcenv.entity.organization.Users;
 import org.slf4j.Logger;
@@ -38,5 +39,10 @@ public class OrganizationProviderFallback implements OrganizationProvider {
     public Resp<List<Resource>> resources(String username) {
         log.error("认证服务查询用户异常！查询用户资源为空！");
         return Resp.success(new ArrayList<>());
+    }
+
+    @Override
+    public Resp<List<GatewayRoute>> routeAll() {
+        return Resp.success(new ArrayList<GatewayRoute>());
     }
 }

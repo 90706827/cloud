@@ -2,11 +2,11 @@ package com.zgcenv.gateway.web;
 
 import com.alicp.jetcache.anno.config.EnableCreateCacheAnnotation;
 import com.alicp.jetcache.anno.config.EnableMethodCache;
-import com.zgcenv.gateway.web.temp.GatewayConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -23,14 +23,16 @@ import java.net.UnknownHostException;
  * @Date 2020-9-25
  * @Version 1.0
  **/
-@EnableDiscoveryClient
-@SpringBootApplication(scanBasePackages = {"com.alicp.jetcache.autoconfigure","com.zgcenv.gateway"})
+
 @EnableFeignClients
+@EnableDiscoveryClient
 @EnableCircuitBreaker
 @EnableMethodCache(basePackages = "com.zgcenv.gateway")
 @EnableCreateCacheAnnotation
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class,
+        scanBasePackages = {"com.alicp.jetcache.autoconfigure", "com.zgcenv.gateway"})
 public class GatewayWebApplication {
-    private static final Logger logger = LoggerFactory.getLogger(GatewayConfig.class);
+    private static final Logger logger = LoggerFactory.getLogger(GatewayWebApplication.class);
 
     public static void main(String[] args) throws UnknownHostException {
 
