@@ -84,6 +84,7 @@ public class RouteService {
     }
 
     public Collection<RouteDefinition> getRouteDefinitions() {
+        logger.info("加载路由信息：{}", routeDefinitionMaps.size());
         return routeDefinitionMaps.values();
     }
 

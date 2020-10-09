@@ -30,7 +30,6 @@ import java.util.stream.Collectors;
  **/
 
 @Service
-
 public class ResourceService {
     private static final Logger log = LoggerFactory.getLogger(ResourceService.class);
 
@@ -60,7 +59,7 @@ public class ResourceService {
 
     public synchronized void loadResource() {
         Resp<List<Resource>> resourcesResult = resourceProvider.resources();
-        if (!resourcesResult.isSuccess()) {
+        if (!resourcesResult.getSuccess()) {
             System.exit(1);
         }
         List<Resource> resources = resourcesResult.getResult();
