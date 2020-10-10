@@ -1,4 +1,4 @@
-package com.zgcenv.organization.config;
+package com.zgcenv.authentication.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,7 +32,7 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.zgcenv.organization"))
+                .apis(RequestHandlerSelectors.basePackage("com.zgcenv.authentication"))
                 .paths(PathSelectors.any())
                 .build()
                 // 设置全局 token, 解决接口需要 token 验证的问题
@@ -67,7 +67,7 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Organization API")
+                .title("Config API")
                 .description("子服务")
                 .termsOfServiceUrl("http://www.zgcenv.com/")
                 .version("2.0")

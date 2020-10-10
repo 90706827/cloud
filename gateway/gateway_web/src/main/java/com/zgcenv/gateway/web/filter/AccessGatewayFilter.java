@@ -55,7 +55,7 @@ public class AccessGatewayFilter implements GlobalFilter {
         String url = request.getPath().value();
         log.info("url:{},method:{},headers:{}", url, method, request.getHeaders());
         //不需要网关签权的url
-        if(true){
+        if (true) {
 //        if (authService.ignoreAuthentication(url)) {
             return chain.filter(exchange);
         }

@@ -19,7 +19,7 @@ import java.util.List;
 public class SwaggerProvider implements SwaggerResourcesProvider {
     private static final Logger logger = LoggerFactory.getLogger(RouteService.class);
 
-    public static final String API_URI = "/swagger-ui.html";
+    public static final String API_URI = "/v2/api-docs";
 
     @Resource
     private final RouteService routeService;
@@ -31,13 +31,14 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
         routeService.getRouteDefinitions().stream()
                 .forEach(routeDefinition -> routeDefinition.getPredicates().stream()
                         .filter(predicateDefinition ->
-                                "Path".equalsIgnoreCase(predicateDefinition.getName()))
+                                ("Path").equalsIgnoreCase(predicateDefinition.getName()))
                         .peek(predicateDefinition -> logger.debug("路由配置参数：{}", predicateDefinition.getArgs()))
-                        .forEach(predicateDefinition -> resources.add(swaggerResource(routeDefinition.getId(),
+                        .forEach(predicateDefinition -> resources.add(swaggerResource(routeDefinition.getId(), "/" + routeDefinition.getId() +
                                 predicateDefinition.getArgs().get("pattern").replace("/**", API_URI)))));
         logger.debug("resources:{}", resources);
         return resources;
     }
+
 
     private SwaggerResource swaggerResource(String name, String location) {
         SwaggerResource swaggerResource = new SwaggerResource();

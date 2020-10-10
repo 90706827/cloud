@@ -40,7 +40,7 @@ public class GatewayWebApplication {
         Environment env = applicationContext.getEnvironment();
         logger.info("\n----------------------------------------------------------\n\t" +
                         "应用 '{}' 运行成功! 访问连接:\n\t" +
-                        "Swagger文档: \t\thttp://{}:{}{}{}/doc.html\n\t" +
+                        "Swagger文档: \t\thttp://{}:{}{}{}//swagger-ui.html\n\t" +
                         "----------------------------------------------------------",
                 env.getProperty("spring.application.name"),
                 InetAddress.getLocalHost().getHostAddress(),

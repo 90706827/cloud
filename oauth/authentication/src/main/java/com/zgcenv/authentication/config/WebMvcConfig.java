@@ -1,4 +1,4 @@
-package com.zgcenv.authorization.config;
+package com.zgcenv.authentication.config;
 
 /**
  * @ClassName WebMvcConfig
@@ -15,9 +15,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.List;
 
@@ -34,14 +32,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
         converters.add(jackson);
     }
 
-    /**
-     * oauth 授权视图配置
-     **/
-    @Override
-    public void configureViewResolvers(ViewResolverRegistry registry) {
-        registry.viewResolver(new InternalResourceViewResolver());
-    }
-
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 解决静态资源无法访问
@@ -51,4 +41,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 解决swagger的js文件无法访问
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
 }
