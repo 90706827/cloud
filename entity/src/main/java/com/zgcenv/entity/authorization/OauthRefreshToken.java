@@ -1,8 +1,11 @@
 package com.zgcenv.entity.authorization;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Arrays;
 
 /**
  * @ClassName OauthRefreshToken
@@ -11,62 +14,23 @@ import java.util.Arrays;
  * @Date 2020-9-17
  * @Version 1.0
  **/
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table(name = "oauth_refresh_token", schema = "cloud", catalog = "")
+@Table(name = "oauth_refresh_token")
 public class OauthRefreshToken implements Serializable {
-    private String tokenId;
-    private byte[] token;
-    private byte[] authentication;
 
     @Id
     @Column(name = "token_id")
-    public String getTokenId() {
-        return tokenId;
-    }
-
-    public void setTokenId(String tokenId) {
-        this.tokenId = tokenId;
-    }
+    private String tokenId;
 
     @Basic
     @Column(name = "token")
-    public byte[] getToken() {
-        return token;
-    }
-
-    public void setToken(byte[] token) {
-        this.token = token;
-    }
+    private byte[] token;
 
     @Basic
     @Column(name = "authentication")
-    public byte[] getAuthentication() {
-        return authentication;
-    }
+    private byte[] authentication;
 
-    public void setAuthentication(byte[] authentication) {
-        this.authentication = authentication;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        OauthRefreshToken that = (OauthRefreshToken) o;
-
-        if (tokenId != null ? !tokenId.equals(that.tokenId) : that.tokenId != null) return false;
-        if (!Arrays.equals(token, that.token)) return false;
-        if (!Arrays.equals(authentication, that.authentication)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = tokenId != null ? tokenId.hashCode() : 0;
-        result = 31 * result + Arrays.hashCode(token);
-        result = 31 * result + Arrays.hashCode(authentication);
-        return result;
-    }
 }

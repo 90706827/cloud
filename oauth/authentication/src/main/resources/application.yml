@@ -35,6 +35,9 @@ spring:
     oauth2:
       jwt:
         signingKey: 123456
+custom:
+  workerId:
+  datacenterId:
 feign:
   compression:
     request:

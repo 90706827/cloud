@@ -11,7 +11,7 @@ import org.hibernate.engine.spi.SharedSessionContractImplementor;
 import org.hibernate.id.IdentifierGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -27,13 +27,8 @@ import java.io.Serializable;
 public class IdUtils implements IdentifierGenerator {
     private final static Logger log = LoggerFactory.getLogger(IdUtils.class);
 
-    @Value("snowFlake.workerId")
-    private static long workerId;
-
-    @Value("snowFlake.datacenterId")
-    private static long datacenterId;
-
-    private Snowflake snowflake = new Snowflake(workerId, datacenterId);
+    @Autowired(required = false)
+    private Snowflake snowflake;
 
     /**
      * 获取一个批次号，形如 2019071015301361000101237

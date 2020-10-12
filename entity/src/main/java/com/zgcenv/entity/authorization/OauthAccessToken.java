@@ -3,7 +3,6 @@ package com.zgcenv.entity.authorization;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -24,8 +23,6 @@ public class OauthAccessToken implements Serializable {
 
     @Id
     @Column(name = "token_id")
-    @GeneratedValue(generator = "idUtils")
-    @GenericGenerator(name = "idUtils", strategy = "com.zgcenv.entity.oauth.utils.IdUtils")
     private String tokenId;
 
     @Basic
