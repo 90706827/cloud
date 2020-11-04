@@ -74,7 +74,7 @@ export default defineConfig({
                 },
                 {
                   name: 'analysis',
-                  icon: 'smile',
+                  icon: 'dashboard',
                   path: '/dashboard/analysis',
                   component: './dashboard/analysis',
                 },
@@ -129,27 +129,29 @@ export default defineConfig({
                 {
                   path: '/list/search',
                   name: 'search-list',
+                  icon: 'table',
                   component: './list/search',
                   routes: [
                     {
                       path: '/list/search',
+                      icon: 'table',
                       redirect: '/list/search/articles',
                     },
                     {
                       name: 'articles',
-                      icon: 'smile',
+                      icon: 'table',
                       path: '/list/search/articles',
                       component: './list/search/articles',
                     },
                     {
                       name: 'projects',
-                      icon: 'smile',
+                      icon: 'table',
                       path: '/list/search/projects',
                       component: './list/search/projects',
                     },
                     {
                       name: 'applications',
-                      icon: 'smile',
+                      icon: 'table',
                       path: '/list/search/applications',
                       component: './list/search/applications',
                     },
