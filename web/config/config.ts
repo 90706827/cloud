@@ -33,8 +33,8 @@ export default defineConfig({
           component: '../layouts/UserLayout',
           routes: [
             {
-              path: '/user',
-              redirect: '/user/login',
+              path: '/user/login',
+              component: './user/login',
             },
             {
               name: 'register-result',
