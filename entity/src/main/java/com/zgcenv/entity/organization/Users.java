@@ -50,6 +50,7 @@ public class Users implements Serializable {
     @Basic
     @Column(name = "deleted")
     private String deleted;
+
     @Basic
     @Column(name = "enabled")
     private Boolean enabled;

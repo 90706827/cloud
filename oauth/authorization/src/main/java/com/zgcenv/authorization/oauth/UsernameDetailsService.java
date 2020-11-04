@@ -33,6 +33,7 @@ public class UsernameDetailsService implements UserDetailsService {
     @Resource
     private UserService userService;
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Users user = userService.findUserByUsername(username).getResult();
         return new User(
