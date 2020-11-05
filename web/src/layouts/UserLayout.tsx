@@ -56,7 +56,17 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
           </div>
           {children}
         </div>
-        <DefaultFooter />
+        <DefaultFooter
+          copyright={`${new Date().getFullYear()} 中关村至臻环保股份有限公司`}
+          links={[
+            {
+              key: '环责险综合管理服务平台',
+              title: '环责险综合管理服务平台',
+              href: 'http://www.china-elip.com',
+              blankTarget: true,
+            },
+          ]}
+        />
       </div>
     </HelmetProvider>
   );
