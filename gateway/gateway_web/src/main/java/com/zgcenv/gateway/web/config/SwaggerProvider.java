@@ -17,7 +17,7 @@ import java.util.List;
 @Primary
 @AllArgsConstructor
 public class SwaggerProvider implements SwaggerResourcesProvider {
-    private static final Logger logger = LoggerFactory.getLogger(RouteService.class);
+    private static final Logger logger = LoggerFactory.getLogger(SwaggerProvider.class);
 
     public static final String API_URI = "/v2/api-docs";
 

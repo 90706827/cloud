@@ -1,6 +1,8 @@
 const RouterConfig = require('../../config/config').default.routes;
 
-const BASE_URL = `http://localhost:${process.env.PORT || 8000}`;
+// const BASE_URL = `http://localhost:${process.env.PORT || 8001}`;
+
+const BASE_URL = `http://localhost:8080`;
 
 function formatter(routes, parentPath = '') {
   const fixedParentPath = parentPath.replace(/\/{1,}/g, '/');

@@ -1,7 +1,5 @@
 server:
-  port: 8088
-  servlet:
-    context-path: /authorization
+  port: 8081
 spring:
   application:
     name: authorization

@@ -5,6 +5,7 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
+const basicUrl = 'http://loclahost:8080';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -51,6 +52,27 @@ const errorHandler = (error: { response: Response }): Response => {
 const request = extend({
   errorHandler, // 默认错误处理
   credentials: 'include', // 默认请求是否带上cookie
+});
+
+// request拦截器, 改变url 或 options.
+request.interceptors.request.use((url, options) => {
+  const token = localStorage.getItem('auth');
+  const headers = {
+    // 'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: '',
+  };
+  if (token) {
+    headers.Authorization = token;
+    return {
+      url: `${basicUrl}${url}`,
+      options: { ...options, interceptors: true, headers },
+    };
+  }
+  return {
+    url: `${basicUrl}${url}`,
+    options: { ...options, interceptors: true },
+  };
 });
 
 export default request;

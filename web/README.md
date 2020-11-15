@@ -4,6 +4,8 @@ This project is initialized with [Ant Design Pro](https://pro.ant.design). Follo
 
 ## Environment Prepare
 
+https://ts.xcatliu.com/basics/declaration-files.html
+
 Install `node_modules`:
 
 ```bash

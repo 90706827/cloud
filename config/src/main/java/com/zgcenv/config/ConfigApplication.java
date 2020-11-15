@@ -20,9 +20,7 @@ import java.net.UnknownHostException;
 @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 public class ConfigApplication {
 
-
     private static final Logger logger = LoggerFactory.getLogger(ConfigApplication.class);
-
 
     public static void main(String[] args) throws UnknownHostException {
 

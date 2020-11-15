@@ -53,7 +53,8 @@ public class RouteService {
     private void loadRouteDefinition() {
         logger.info("loadRouteDefinition, 开始初使化路由");
         Set<String> gatewayKeys = stringRedisTemplate.keys(GATEWAY_ROUTES + "*");
-        if (CollectionUtils.isEmpty(gatewayKeys)) {
+//        if (CollectionUtils.isEmpty(gatewayKeys)) {
+        if(true){
             logger.info("loadRouteDefinition, 缓存中没有数据");
             Resp<List<GatewayRoute>> resp = gatewayRouteProvider.routeAll();
             List<GatewayRoute> gatewayRoutes = resp.getResult();
@@ -102,7 +103,6 @@ public class RouteService {
 
     /**
      * 将数据库中json对象转换为网关需要的RouteDefinition对象
-     *
      * @param gatewayRoute
      * @return RouteDefinition
      */
