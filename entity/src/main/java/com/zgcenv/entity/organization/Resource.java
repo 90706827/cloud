@@ -27,7 +27,7 @@ public class Resource implements Serializable {
     @Column(name = "id")
     @GeneratedValue(generator = "idUtils")
     @GenericGenerator(name = "idUtils", strategy = "com.zgcenv.entity.utils.IdUtils")
-    private String id;
+    private Long id;
 
     @Basic
     @Column(name = "code")

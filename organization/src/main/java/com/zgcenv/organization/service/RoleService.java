@@ -14,6 +14,6 @@ public class RoleService {
     private RoleDao roleDao;
 
     public List<Roles> findRolesById(Long userId) {
-        return findRolesById(userId);
+        return roleDao.findAllRolesById(userId);
     }
 }

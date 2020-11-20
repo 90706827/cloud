@@ -1,4 +1,6 @@
 spring:
+  freemarker:
+    check-template-location: false
   redis:
     database: 0
     host: 127.0.0.1
@@ -29,20 +31,23 @@ spring:
       maximum-pool-size: 20
       auto-commit: true
     # jpa 配置
-    jpa:
-      # sql 打印
-      show-sql: true
-      # 指定生成表名的存储引擎为InnoDBD
-      database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
-      properties:
-        hibernate:
-          # the Hibernate entity manager
-          globally_quoted_identifiers: true
-          # 格式化SQL输出
-          format_sql: false
+  jpa:
+    # sql 打印
+    show-sql: true
+    # 指定生成表名的存储引擎为InnoDBD
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    properties:
       hibernate:
-        # create, create-drop, update, validate
-        # 作用主要用于：自动创建、更新、验证数据库表结构
-        ddl-auto: validate
-      database: mysql
-      open-in-view: false
+        # the Hibernate entity manager
+        globally_quoted_identifiers: true
+        # 格式化SQL输出
+        format_sql: false
+    hibernate:
+      # create, create-drop, update, validate
+      # 作用主要用于：自动创建、更新、验证数据库表结构
+      ddl-auto: validate
+    database: mysql
+    open-in-view: false
+  groovy:
+    template:
+      check-template-location: false

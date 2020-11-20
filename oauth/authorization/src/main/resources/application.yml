@@ -1,4 +1,6 @@
 spring:
+  freemarker:
+    check-template-location: false
   redis:
     database: 0
     host: 127.0.0.1
@@ -51,15 +53,11 @@ spring:
     oauth2:
       jwt:
         signingKey: 123456
+  groovy:
+    template:
+      check-template-location: false
 feign:
-  compression:
-    request:
-      # 开启请求压缩
-      enabled: true
-      # 设置压缩的数据类型 默认值：text/html,application/xml,application/json
-      mime-types: text/html,application/xml,application/json
-      # 设置触发压缩的大小下限 默认值：2048
-      min-request-size: 2048
-  hystrix:
-    # 熔断开启
+  okhttp:
     enabled: true
+  httpclient:
+    enabled: false

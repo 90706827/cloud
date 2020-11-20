@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -59,18 +60,12 @@ public class GatewayRoute implements Serializable {
 
     @Basic
     @Column(name = "created_time")
+    @CreatedDate
     private Date createdTime;
 
     @Basic
     @Column(name = "updated_time")
+    @CreatedDate
     private Date updatedTime;
-
-    @Basic
-    @Column(name = "created_by")
-    private String createdBy;
-
-    @Basic
-    @Column(name = "updated_by")
-    private String updatedBy;
 
 }

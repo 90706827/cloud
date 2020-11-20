@@ -7,7 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * @ClassName Roles
@@ -28,7 +28,7 @@ public class Roles implements Serializable {
     @Column(name = "id")
     @GeneratedValue(generator = "idUtils")
     @GenericGenerator(name = "idUtils", strategy = "com.zgcenv.entity.utils.IdUtils")
-    private String id;
+    private Long id;
 
     @Basic
     @Column(name = "code")
@@ -44,11 +44,11 @@ public class Roles implements Serializable {
 
     @Basic
     @Column(name = "created_time")
-    private Timestamp createdTime;
+    private Date createdTime;
 
     @Basic
     @Column(name = "updated_time")
-    private Timestamp updatedTime;
+    private Date updatedTime;
 
     @Basic
     @Column(name = "created_by")

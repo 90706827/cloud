@@ -39,8 +39,8 @@ public class GatewayRouteService {
     @CreateCache(name = GATEWAY_ROUTES, cacheType = CacheType.REMOTE)
     private Cache<String, RouteDefinition> gatewayRouteCache;
 
-    @Resource
-    private EventSender eventSender;
+//    @Resource
+//    private EventSender eventSender;
 
     @Resource
     private GatewayRouteDao gatewayRouteDao;
@@ -50,7 +50,7 @@ public class GatewayRouteService {
         // 转化为gateway需要的类型，缓存到redis, 并事件通知各网关应用
         RouteDefinition routeDefinition = gatewayRouteToRouteDefinition(gatewayRoute);
         gatewayRouteCache.put(gatewayRoute.getRouteId(), routeDefinition);
-        eventSender.send(BusConfig.ROUTING_KEY, routeDefinition);
+//        eventSender.send(BusConfig.ROUTING_KEY, routeDefinition);
         return true;
     }
 
@@ -58,7 +58,7 @@ public class GatewayRouteService {
         GatewayRoute gatewayRoute = gatewayRouteDao.getOne(id);
         // 删除redis缓存, 并事件通知各网关应用
         gatewayRouteCache.remove(gatewayRoute.getRouteId());
-        eventSender.send(BusConfig.ROUTING_KEY, gatewayRouteToRouteDefinition(gatewayRoute));
+//        eventSender.send(BusConfig.ROUTING_KEY, gatewayRouteToRouteDefinition(gatewayRoute));
         gatewayRouteDao.deleteById(id);
         return true;
     }
@@ -68,7 +68,7 @@ public class GatewayRouteService {
         // 转化为gateway需要的类型，缓存到redis, 并事件通知各网关应用
         RouteDefinition routeDefinition = gatewayRouteToRouteDefinition(gatewayRoute);
         gatewayRouteCache.put(gatewayRoute.getRouteId(), routeDefinition);
-        eventSender.send(BusConfig.ROUTING_KEY, routeDefinition);
+//        eventSender.send(BusConfig.ROUTING_KEY, routeDefinition);
         return true;
     }
 

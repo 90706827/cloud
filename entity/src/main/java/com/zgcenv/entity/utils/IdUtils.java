@@ -18,7 +18,7 @@ import java.io.Serializable;
 
 /**
  * @ClassName IdGenerator
- * @Description
+ * @Description 主键生成策略
  * @Author Mr.Jangni
  * @Date 2019/10/23 9:56
  * @Version 1.0

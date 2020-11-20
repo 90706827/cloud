@@ -12,7 +12,6 @@
         <module name="gateway_admin" />
         <module name="organization" />
         <module name="gateway_web" />
-        <module name="config" />
         <module name="entity" />
         <module name="authentication" />
       </profile>
@@ -21,7 +20,6 @@
       <module name="authentication" target="1.8" />
       <module name="authorization" target="1.8" />
       <module name="cloud" target="1.8" />
-      <module name="config" target="1.8" />
       <module name="core" target="1.8" />
       <module name="entity" target="1.8" />
       <module name="gateway" target="1.8" />

@@ -70,7 +70,6 @@ public class WebServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 创建手机验证码登陆的AuthenticationProvider
-     *
      * @return mobileAuthenticationProvider
      */
     @Bean
@@ -78,5 +77,10 @@ public class WebServerSecurityConfig extends WebSecurityConfigurerAdapter {
         MobileAuthenticationProvider mobileAuthenticationProvider = new MobileAuthenticationProvider(this.mobileUserDetailsService);
         mobileAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         return mobileAuthenticationProvider;
+    }
+
+    public static void main(String[] args) {
+        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        System.out.println(passwordEncoder.encode("password"));
     }
 }

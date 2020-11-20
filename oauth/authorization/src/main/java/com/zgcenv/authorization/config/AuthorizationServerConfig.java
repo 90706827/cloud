@@ -4,8 +4,11 @@ import com.google.common.collect.Lists;
 import com.zgcenv.authorization.exception.CustomWebResponseExceptionTranslator;
 import com.zgcenv.authorization.oauth.enhancer.CustomTokenEnhancer;
 import com.zgcenv.authorization.oauth.granter.MobileTokenGranter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.security.oauth2.SpringCloudSecurityAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -36,6 +39,7 @@ import java.util.List;
 @Configuration
 @EnableAuthorizationServer
 public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdapter {
+    private static final Logger logger = LoggerFactory.getLogger(AuthorizationServerConfig.class);
 
     @Resource
     @Qualifier("authenticationManagerBean")
@@ -145,7 +149,8 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Bean
     public JwtAccessTokenConverter accessTokenConverter() {
         JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
-        converter.setSigningKey(signingKey);
+        logger.info("key:{}",signingKey);
+//        converter.setSigningKey(signingKey);
         return converter;
     }
 

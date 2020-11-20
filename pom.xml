@@ -6,7 +6,6 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>config</module>
         <module>gateway</module>
         <module>oauth</module>
         <module>core</module>
@@ -64,6 +63,11 @@
             <groupId>org.codehaus.groovy</groupId>
             <artifactId>groovy-all</artifactId>
             <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
         </dependency>
 
     </dependencies>
