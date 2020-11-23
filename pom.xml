@@ -7,10 +7,10 @@
 
     <modules>
         <module>gateway</module>
-        <module>oauth</module>
         <module>core</module>
         <module>organization</module>
         <module>entity</module>
+        <module>authorization</module>
     </modules>
 
     <groupId>com.zgcenv</groupId>

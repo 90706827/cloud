@@ -1,7 +1,7 @@
 package com.zgcenv.organization.entity.form;
 
 import com.zgcenv.core.entity.BaseForm;
-import com.zgcenv.entity.organization.Resource;
+import com.zgcenv.entity.organization.Resources;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 
 @ApiModel
 @Data
-public class ResourceForm extends BaseForm<Resource> {
+public class ResourceForm extends BaseForm<Resources> {
 
     @NotBlank(message = "资源名称不能为空")
     @ApiModelProperty(value = "资源名称")

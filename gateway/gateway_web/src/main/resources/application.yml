@@ -66,4 +66,7 @@ jetcache:
 gate:
   ignore:
     authentication:
-      startWith: /oauth,/config,/open,/v2/api-docs
+      startWith: /oauth,/v2/api-docs
+
+custom:
+  swaggerPath: { organization: /organization/**,gateway-admin: /gateway-admin/** }

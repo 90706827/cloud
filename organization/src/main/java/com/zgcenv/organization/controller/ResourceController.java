@@ -1,11 +1,14 @@
 package com.zgcenv.organization.controller;
 
 import com.zgcenv.core.context.Resp;
+import com.zgcenv.core.context.RespCode;
+import com.zgcenv.entity.organization.Resources;
 import com.zgcenv.organization.service.ResourceService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,7 +39,7 @@ public class ResourceController {
     @GetMapping(value = "/user")
     public Resp queryByUsername(@RequestParam String username) {
         log.debug("query with username:{}", username);
-        List<com.zgcenv.entity.organization.Resource> list =resourceService.findResourceByUsername(username);
+        List<Resources> list = resourceService.findResourceByUsername(username);
         return Resp.success(list);
     }
 
@@ -48,5 +51,13 @@ public class ResourceController {
     public Resp queryAll() {
         log.debug("query with all");
         return Resp.success(resourceService.findAll());
+    }
+
+    @GetMapping(value = "/findResourceByUsername")
+    Resp<List<Resources>> findResourceByUsername(String username) {
+        if (StringUtils.isEmpty(username)) {
+            return Resp.fail(RespCode.JWT_USER_INVALID);
+        }
+        return Resp.success(resourceService.findResourceByUsername(username));
     }
 }

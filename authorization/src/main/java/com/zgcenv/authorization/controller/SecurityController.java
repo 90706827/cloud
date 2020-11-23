@@ -1,0 +1,52 @@
+package com.zgcenv.authorization.controller;
+
+import com.zgcenv.authorization.service.AuthenticationService;
+import com.zgcenv.authorization.utils.HttpServletRequestAuthWrapper;
+import com.zgcenv.core.context.Resp;
+import com.zgcenv.core.context.RespCode;
+import com.zgcenv.core.exception.BizException;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+
+/**
+ * @ClassName SecurityController
+ * @Description
+ * @Author Mr.Jangni
+ * @Date 2020-9-14
+ * @Version 1.0
+ **/
+@RestController
+public class SecurityController {
+
+    @Resource
+    private ConsumerTokenServices consumerTokenServices;
+    @Resource
+    private AuthenticationService authenticationService;
+
+    @DeleteMapping("signout")
+    public Object signout(HttpServletRequest request) throws BizException {
+        String authorization = request.getHeader("Authorization");
+        String token = StringUtils.replace(authorization, "bearer ", "");
+
+        if (!consumerTokenServices.revokeToken(token)) {
+            return Resp.fail(RespCode.BAD_REQUEST);
+        }
+        return Resp.success("退出登录成功");
+    }
+
+    @ApiOperation(value = "权限验证", notes = "根据用户token，访问的url和method判断用户是否有权限访问")
+    @PostMapping(value = "/auth/permission")
+    public Resp<?> decide(@RequestParam String url, @RequestParam String method, HttpServletRequest request) {
+        boolean decide = authenticationService.decide(new HttpServletRequestAuthWrapper(request, url, method));
+        return Resp.success(decide);
+    }
+
+}

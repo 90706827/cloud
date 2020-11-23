@@ -942,7 +942,7 @@ SELECT|sys.sys_config:null
       <Comment>岗位表</Comment>
       <Collation>utf8mb4_general_ci</Collation>
     </table>
-    <table id="292" parent="2" name="resource">
+    <table id="292" parent="2" name="resources">
       <Comment>资源表</Comment>
       <Collation>utf8mb4_general_ci</Collation>
     </table>

@@ -30,7 +30,6 @@ import java.util.List;
  * @Version 1.0
  **/
 @Service
-
 public class GatewayRouteService {
     private static final Logger log = LoggerFactory.getLogger(GatewayRouteService.class);
 

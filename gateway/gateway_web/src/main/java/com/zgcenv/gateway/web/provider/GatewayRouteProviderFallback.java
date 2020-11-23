@@ -2,6 +2,7 @@ package com.zgcenv.gateway.web.provider;
 
 import com.zgcenv.core.context.Resp;
 import com.zgcenv.entity.gateway.GatewayRoute;
+import com.zgcenv.entity.vo.UserVo;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -21,15 +22,9 @@ public class GatewayRouteProviderFallback implements GatewayRouteProvider {
     public Resp<List<GatewayRoute>> routeAll() {
         return Resp.success(new ArrayList<>());
     }
+
+    @Override
+    public Resp<UserVo> findUserInfoByUsername(String username) {
+        return Resp.success(new UserVo());
+    }
 }
-
-
-//public class GatewayRouteProviderFallback implements FallbackFactory<GatewayRouteProvider> {
-//    private final static Logger logger = LoggerFactory.getLogger(GatewayRouteProviderFallback.class);
-//
-//    @Override
-//    public GatewayRouteProvider create(Throwable cause) {
-//        logger.error(cause.getMessage());
-//        return () -> Resp.success(new ArrayList<>());
-//    }
-//}

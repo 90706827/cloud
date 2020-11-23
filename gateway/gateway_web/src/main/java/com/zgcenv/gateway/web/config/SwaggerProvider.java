@@ -22,20 +22,14 @@ public class SwaggerProvider implements SwaggerResourcesProvider {
     public static final String API_URI = "/v2/api-docs";
 
     @Resource
-    private final RouteService routeService;
+    private final CustomParam customParam;
 
     @Override
     public List<SwaggerResource> get() {
         List<SwaggerResource> resources = new ArrayList<>();
-        logger.info(resources.toString());
-        routeService.getRouteDefinitions().stream()
-                .forEach(routeDefinition -> routeDefinition.getPredicates().stream()
-                        .filter(predicateDefinition ->
-                                ("Path").equalsIgnoreCase(predicateDefinition.getName()))
-                        .peek(predicateDefinition -> logger.debug("路由配置参数：{}", predicateDefinition.getArgs()))
-                        .forEach(predicateDefinition -> resources.add(swaggerResource(routeDefinition.getId(), "/" + routeDefinition.getId() +
-                                predicateDefinition.getArgs().get("pattern").replace("/**", API_URI)))));
-        logger.debug("resources:{}", resources);
+        customParam.getSwaggerPath().forEach((key, value) -> resources.add(swaggerResource(key,
+                value.replace("/**", API_URI))));
+        logger.debug("resources:{}", resources.toString());
         return resources;
     }
 

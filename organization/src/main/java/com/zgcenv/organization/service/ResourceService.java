@@ -2,9 +2,8 @@ package com.zgcenv.organization.service;
 
 import com.alicp.jetcache.anno.CacheType;
 import com.alicp.jetcache.anno.Cached;
-import com.zgcenv.entity.organization.Resource;
+import com.zgcenv.entity.organization.Resources;
 import com.zgcenv.organization.dao.ResourceDao;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,11 +22,11 @@ public class ResourceService {
     private ResourceDao resourceDao;
 
     @Cached(name = "resource4user::", key = "#username", cacheType = CacheType.BOTH)
-    public List<Resource> findResourceByUsername(String username) {
+    public List<Resources> findResourceByUsername(String username) {
         return resourceDao.findResourceByUsername(username);
     }
 
-    public List<Resource> findAll() {
+    public List<Resources> findAll() {
         return resourceDao.findAll();
     }
 }

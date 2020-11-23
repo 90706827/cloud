@@ -9,18 +9,17 @@ import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
-//@Component
-
+@Component
 public class EventSender {
     private static final Logger log = LoggerFactory.getLogger(EventSender.class);
 
-//    @Resource
+    @Resource
     private RabbitTemplate rabbitTemplate;
 
-//    @Resource
+    @Resource
     private MessageConverter messageConverter;
 
-//    @PostConstruct
+    @PostConstruct
     public void init() {
         rabbitTemplate.setMessageConverter(messageConverter);
     }

@@ -17,6 +17,7 @@ import java.util.Map;
  */
 
 public class UserInterceptor implements HandlerInterceptor {
+
     private static final Logger log = LoggerFactory.getLogger(UserInterceptor.class);
     /**
      * 服务间调用token用户信息,格式为json
