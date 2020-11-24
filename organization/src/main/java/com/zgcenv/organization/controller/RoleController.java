@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 @RestController
-@RequestMapping("/role")
 @Api("Role")
 public class RoleController {
     @Resource
@@ -20,7 +19,7 @@ public class RoleController {
 
 
     @ApiOperation(value = "获取用户角色", notes = "获取用户角色")
-    @GetMapping("/findUserRolesByUserId")
+    @GetMapping("/role/findUserRolesByUserId")
     public Resp<?> findUserRolesByUserId(@RequestParam Long userId) {
         return Resp.success(roleService.findRolesById(userId));
     }

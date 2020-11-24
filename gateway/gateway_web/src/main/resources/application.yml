@@ -67,6 +67,5 @@ gate:
   ignore:
     authentication:
       startWith: /oauth,/v2/api-docs
-
 custom:
-  swaggerPath: { organization: /organization/**,gateway-admin: /gateway-admin/** }
+  swaggerPath: { organization: /organization/**,gateway-admin: /gateway-admin/**,authorization: /authorization/** }

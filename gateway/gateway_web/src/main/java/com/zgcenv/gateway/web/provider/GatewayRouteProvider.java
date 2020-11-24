@@ -24,6 +24,6 @@ public interface GatewayRouteProvider {
     @GetMapping(value = "/routes/all")
     Resp<List<GatewayRoute>> routeAll();
 
-    @PostMapping(value = "/user/findUserInfoByUsername")
+    @GetMapping(value = "/user/findUserInfoByUsername")
     Resp<UserVo> findUserInfoByUsername(@RequestParam("username") String username);
 }

@@ -10,7 +10,6 @@ import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -71,6 +70,7 @@ public class AccessGatewayFilter implements GlobalFilter {
         logger.info("url:{},method:{},headers:{}", url, method, request.getHeaders());
         //不需要网关签权的url
         if (ignoreAuthentication(url)) {
+            logger.info("路由拦截器，自定义放行：{}",url);
             return chain.filter(exchange);
         }
         if (StringUtils.isEmpty(authentication) || !authentication.startsWith(BEARER)) {
@@ -105,8 +105,11 @@ public class AccessGatewayFilter implements GlobalFilter {
     }
 
     private boolean ignoreAuthentication(String url) {
-        return Stream.of("/oauth,/v2/api-docs".split(",")).anyMatch(ignoreUrl ->
-                url.substring(url.indexOf("/", 1), url.length()).startsWith(ignoreUrl.trim()));
+
+        return Stream.of("/oauth,/open,/v2/api-docs".split(",")).anyMatch(ignoreUrl ->
+                url.startsWith(StringUtils.trim(ignoreUrl)));
+//        return Stream.of("/oauth,/v2/api-docs".split(",")).anyMatch(ignoreUrl ->
+//                url.substring(url.indexOf("/", 1), url.length()).startsWith(ignoreUrl.trim()));
     }
 
     /**

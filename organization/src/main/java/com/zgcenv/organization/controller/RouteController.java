@@ -21,10 +21,8 @@ import javax.annotation.Resource;
  * @Date 2020-9-25
  * @Version 1.0
  **/
-
-@RestController
-@RequestMapping("/routes")
 @Api("gateway routes")
+@RestController
 public class RouteController {
     private static final Logger log = LoggerFactory.getLogger(RouteController.class);
 
@@ -36,7 +34,7 @@ public class RouteController {
     @ApiResponses(
             @ApiResponse(code = 200, message = "处理成功", response = Resp.class)
     )
-    @RequestMapping(value = "/all",method = RequestMethod.GET)
+    @RequestMapping(value = "/routes/all",method = RequestMethod.GET)
     public Resp<?> all() {
         return Resp.success(gatewayRoutService.all());
     }

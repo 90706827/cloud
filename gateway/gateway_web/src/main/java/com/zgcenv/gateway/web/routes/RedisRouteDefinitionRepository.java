@@ -1,6 +1,7 @@
 package com.zgcenv.gateway.web.routes;
 
 import com.zgcenv.gateway.web.service.RouteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinitionRepository;
 import org.springframework.stereotype.Component;
@@ -20,7 +21,7 @@ import java.util.Collection;
 @Component
 public class RedisRouteDefinitionRepository implements RouteDefinitionRepository {
 
-    @Resource
+    @Autowired
     private RouteService routeService;
 
     @Override

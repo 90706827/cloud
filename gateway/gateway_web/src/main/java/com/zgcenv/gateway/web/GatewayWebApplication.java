@@ -28,10 +28,10 @@ import java.net.UnknownHostException;
 @EnableFeignClients
 @EnableDiscoveryClient
 @EnableCircuitBreaker
-@EnableMethodCache(basePackages = "com.zgcenv.gateway")
+@EnableMethodCache(basePackages = "com.zgcenv.gateway.web")
 @EnableCreateCacheAnnotation
-@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class},
-        scanBasePackages = {"com.alicp.jetcache.autoconfigure", "com.zgcenv.gateway"})
+@SpringBootApplication(exclude = {DataSourceAutoConfiguration.class},
+        scanBasePackages = {"com.alicp.jetcache.autoconfigure", "com.zgcenv.gateway.web"})
 public class GatewayWebApplication {
     private static final Logger logger = LoggerFactory.getLogger(GatewayWebApplication.class);
 

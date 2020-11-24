@@ -11,12 +11,13 @@ import com.zgcenv.gateway.web.provider.GatewayRouteProvider;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 import org.springframework.cloud.gateway.route.RouteDefinition;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -41,7 +42,9 @@ public class RouteService {
 
     @Resource
     private StringRedisTemplate stringRedisTemplate;
+
     @Resource
+    @Qualifier
     private GatewayRouteProvider gatewayRouteProvider;
 
     @CreateCache(name = GATEWAY_ROUTES, cacheType = CacheType.REMOTE)
@@ -49,12 +52,13 @@ public class RouteService {
 
     private Map<String, RouteDefinition> routeDefinitionMaps = new HashMap<>();
 
+
     @PostConstruct
     private void loadRouteDefinition() {
         logger.info("loadRouteDefinition, 开始初使化路由");
         Set<String> gatewayKeys = stringRedisTemplate.keys(GATEWAY_ROUTES + "*");
 //        if (CollectionUtils.isEmpty(gatewayKeys)) {
-        if(true){
+        if (true) {
             logger.info("loadRouteDefinition, 缓存中没有数据");
             Resp<List<GatewayRoute>> resp = gatewayRouteProvider.routeAll();
             List<GatewayRoute> gatewayRoutes = resp.getResult();
@@ -62,7 +66,7 @@ public class RouteService {
                     gatewayRouteCache.put(gatewayRoute.getRouteId(), gatewayRouteToRouteDefinition(gatewayRoute))
             );
             gatewayKeys = stringRedisTemplate.keys(GATEWAY_ROUTES + "*");
-            logger.info("全局初使化网关路由成功!{}",gatewayRoutes.size());
+            logger.info("全局初使化网关路由成功!{}", gatewayRoutes.size());
 
         }
         logger.info("预计初使化路由, gatewayKeys：{}", gatewayKeys);
@@ -103,6 +107,7 @@ public class RouteService {
 
     /**
      * 将数据库中json对象转换为网关需要的RouteDefinition对象
+     *
      * @param gatewayRoute
      * @return RouteDefinition
      */

@@ -19,7 +19,7 @@ import java.util.List;
 public interface ResourceDao extends JpaRepository<Resources, Long> {
 
     @Modifying
-    @Query(value = "SELECT r.* FROM resource r left join role_resource_relation rr ON r.id = rr.resource_id left join roles ro on rr.role_id = ro.id \tleft join user_role_relation ur on ro.id = ur.role_id left join users u on ur.user_id = u.id where u.username = ?1", nativeQuery = true)
+    @Query(value = "SELECT r.* FROM resources r left join role_resource_relation rr ON r.id = rr.resource_id left join roles ro on rr.role_id = ro.id \tleft join user_role_relation ur on ro.id = ur.role_id left join users u on ur.user_id = u.id where u.username = ?1", nativeQuery = true)
     List<Resources> findResourceByUsername(String username);
 
 }

@@ -11,7 +11,7 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 20/11/2020 16:40:43
+ Date: 24/11/2020 16:07:04
 */
 
 SET NAMES utf8mb4;
@@ -42,10 +42,8 @@ CREATE TABLE `gateway_route`  (
 -- Records of gateway_route
 -- ----------------------------
 INSERT INTO `gateway_route` VALUES (101, 'authorization', 'lb://authorization:8081', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/authorization/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"parts\":\"1\"}}]', 100, '授权认证服务网关注册', 'Y', '2020-09-22 18:55:10', '2020-09-22 18:55:10', 'system', 'system');
-INSERT INTO `gateway_route` VALUES (102, 'authentication', 'lb://authentication:8082', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/authentication/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"parts\":\"1\"}}]', 100, '签权服务网关注册', 'Y', '2020-09-22 18:55:10', '2020-09-22 18:55:10', 'system', 'system');
 INSERT INTO `gateway_route` VALUES (103, 'organization', 'lb://organization:9002', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/organization/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"parts\":\"1\"}}]', 100, '系统管理相关接口', 'Y', '2020-09-22 18:55:10', '2020-09-22 18:55:10', 'system', 'system');
 INSERT INTO `gateway_route` VALUES (104, 'gateway-admin', 'lb://gateway-admin:8445', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/gateway-admin/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"parts\":\"1\"}}]', 100, '网关管理相关接口', 'Y', '2020-09-22 18:55:10', '2020-09-22 18:55:10', 'system', 'system');
-INSERT INTO `gateway_route` VALUES (105, 'config', 'lb://config:8762', '[{\"name\":\"Path\",\"args\":{\"pattern\":\"/config/**\"}}]', '[{\"name\":\"StripPrefix\",\"args\":{\"parts\":\"1\"}}]', 100, '网关管理相关接口', 'Y', '2020-09-22 18:55:10', '2020-09-22 18:55:10', 'system', 'system');
 
 -- ----------------------------
 -- Table structure for menu
@@ -213,10 +211,10 @@ INSERT INTO `position` VALUES (102, '首席运营官', '公司COO，负责公司
 INSERT INTO `position` VALUES (103, '首席技术官', '公司CTO，负责公司整体运营', 'N', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
 
 -- ----------------------------
--- Table structure for resource
+-- Table structure for resources
 -- ----------------------------
-DROP TABLE IF EXISTS `resource`;
-CREATE TABLE `resource`  (
+DROP TABLE IF EXISTS `resources`;
+CREATE TABLE `resources`  (
   `id` bigint(0) NOT NULL COMMENT '资源id',
   `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '资源code',
   `type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '资源类型',
@@ -233,39 +231,39 @@ CREATE TABLE `resource`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '资源表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of resource
+-- Records of resources
 -- ----------------------------
-INSERT INTO `resource` VALUES (101, 'user_manager:btn_add', 'user', '新增用户', '/user', 'POST', '新增用户功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (102, 'user_manager:btn_edit', 'user', '编辑用户', '/user/{id}', 'PUT', '编辑用户功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (103, 'user_manager:btn_del', 'user', '删除用户', '/user/{id}', 'DELETE', '根据用户id删除用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (104, 'user_manager:view', 'user', '查看用户', '/user/{id}', 'GET', '根据用户id获取用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (105, 'user_manager:query', 'user', '搜索用户', '/user/conditions', 'POST', '根据条件查询用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (106, 'user_manager:get', 'user', '获取用户', '/user', 'GET', '根据唯一标识获取用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (201, 'role_manager:btn_add', 'role', '新增角色', '/role', 'POST', '新增角色功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (202, 'role_manager:btn_edit', 'role', '编辑角色', '/role/{id}', 'PUT', '编辑角色功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (203, 'role_manager:btn_del', 'role', '删除角色', '/role/{id}', 'DELETE', '根据id删除角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (204, 'role_manager:view', 'role', '查看角色', '/role/{id}', 'GET', '根据id获取角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (205, 'role_manager:user', 'role', '根据用户id查询角色', '/role/user/{userId}', 'GET', '根据用户id获取用户所拥有的角色集', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (206, 'role_manager:all', 'role', '获取所有角色', '/role/all', 'GET', '获取所有角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (207, 'role_manager:query', 'role', '搜索角色', '/role/conditions', 'POST', '根据条件查询角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (301, 'group_manager:parent', 'group', '根据父id查询组', '/group/parent/{id}', 'GET', '根据父id查询用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (302, 'group_manager:get', 'group', '查看用户组', '/group/{id}', 'GET', '根据id查询用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (303, 'group_manager:query', 'group', '搜索用户组', '/group/conditions', 'POST', '根据条件查询用户组信息', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (304, 'group_manager:del', 'group', '删除用户组', '/group/{id}', 'DELETE', '根据用户id删除用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (305, 'group_manager:edit', 'group', '编辑用户组', '/group/{id}', 'PUT', '修改用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (306, 'group_manager:add', 'group', '新增用户组', '/group', 'POST', '新增用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (307, 'gateway_manager:add', 'gateway', '新增网关路由', '/gateway/routes', 'POST', '新增网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (308, 'gateway_manager:edit', 'gateway', '修改网关路由', '/gateway/routes/{id}', 'PUT', '修改网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (309, 'gateway_manager:adel', 'gateway', '删除网关路由', '/gateway/routes/{id}', 'DELETE', '删除网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (310, 'gateway_manager:view', 'gateway', '查看网关路由', '/gateway/routes/{id}', 'GET', '查看网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (311, 'gateway_manager:query', 'gateway', '搜索网关路由', '/gateway/routes/conditions', 'POST', '搜索网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (312, 'gateway_manager:overload', 'gateway', '全局加载路由', '/gateway/routes/overload', 'POST', '全局加载路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (313, 'resource_manager:add', 'resource', '新增网关路由', '/resource', 'POST', '新增资源路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (314, 'resource_manager:edit', 'resource', '修改网关路由', '/resource/{id}', 'PUT', '修改资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (315, 'resource_manager:adel', 'resource', '删除网关路由', '/resource/{id}', 'DELETE', '删除资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (316, 'resource_manager:view', 'resource', '查看网关路由', '/resource/{id}', 'GET', '查看资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (317, 'resource_manager:query', 'resource', '搜索网关路由', '/resource/conditions', 'POST', '搜索资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
-INSERT INTO `resource` VALUES (318, 'resource_manager:all', 'resource', '全局加载路由', '/resource/all', 'GET', '查询全部资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (101, 'user_manager:btn_add', 'user', '新增用户', '/user', 'POST', '新增用户功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (102, 'user_manager:btn_edit', 'user', '编辑用户', '/user/{id}', 'PUT', '编辑用户功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (103, 'user_manager:btn_del', 'user', '删除用户', '/user/{id}', 'DELETE', '根据用户id删除用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (104, 'user_manager:view', 'user', '查看用户', '/user/{id}', 'GET', '根据用户id获取用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (105, 'user_manager:query', 'user', '搜索用户', '/user/conditions', 'POST', '根据条件查询用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (106, 'user_manager:get', 'user', '获取用户', '/user', 'GET', '根据唯一标识获取用户', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (201, 'role_manager:btn_add', 'role', '新增角色', '/role', 'POST', '新增角色功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (202, 'role_manager:btn_edit', 'role', '编辑角色', '/role/{id}', 'PUT', '编辑角色功能', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (203, 'role_manager:btn_del', 'role', '删除角色', '/role/{id}', 'DELETE', '根据id删除角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (204, 'role_manager:view', 'role', '查看角色', '/role/{id}', 'GET', '根据id获取角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (205, 'role_manager:user', 'role', '根据用户id查询角色', '/role/user/{userId}', 'GET', '根据用户id获取用户所拥有的角色集', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (206, 'role_manager:all', 'role', '获取所有角色', '/role/all', 'GET', '获取所有角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (207, 'role_manager:query', 'role', '搜索角色', '/role/conditions', 'POST', '根据条件查询角色', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (301, 'group_manager:parent', 'group', '根据父id查询组', '/group/parent/{id}', 'GET', '根据父id查询用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (302, 'group_manager:get', 'group', '查看用户组', '/group/{id}', 'GET', '根据id查询用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (303, 'group_manager:query', 'group', '搜索用户组', '/group/conditions', 'POST', '根据条件查询用户组信息', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (304, 'group_manager:del', 'group', '删除用户组', '/group/{id}', 'DELETE', '根据用户id删除用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (305, 'group_manager:edit', 'group', '编辑用户组', '/group/{id}', 'PUT', '修改用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (306, 'group_manager:add', 'group', '新增用户组', '/group', 'POST', '新增用户组', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (307, 'gateway_manager:add', 'gateway', '新增网关路由', '/gateway/routes', 'POST', '新增网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (308, 'gateway_manager:edit', 'gateway', '修改网关路由', '/gateway/routes/{id}', 'PUT', '修改网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (309, 'gateway_manager:adel', 'gateway', '删除网关路由', '/gateway/routes/{id}', 'DELETE', '删除网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (310, 'gateway_manager:view', 'gateway', '查看网关路由', '/gateway/routes/{id}', 'GET', '查看网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (311, 'gateway_manager:query', 'gateway', '搜索网关路由', '/gateway/routes/conditions', 'POST', '搜索网关路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (312, 'gateway_manager:overload', 'gateway', '全局加载路由', '/gateway/routes/overload', 'POST', '全局加载路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (313, 'resource_manager:add', 'resource', '新增网关路由', '/resource', 'POST', '新增资源路由', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (314, 'resource_manager:edit', 'resource', '修改网关路由', '/resource/{id}', 'PUT', '修改资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (315, 'resource_manager:adel', 'resource', '删除网关路由', '/resource/{id}', 'DELETE', '删除资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (316, 'resource_manager:view', 'resource', '查看网关路由', '/resource/{id}', 'GET', '查看资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (317, 'resource_manager:query', 'resource', '搜索网关路由', '/resource/conditions', 'POST', '搜索资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
+INSERT INTO `resources` VALUES (318, 'resource_manager:all', 'resource', '全局加载路由', '/resource/all', 'GET', '查询全部资源', '2020-09-16 19:35:43', '2020-09-16 19:35:43', 'system', 'system');
 
 -- ----------------------------
 -- Table structure for role_menu_relation

@@ -8,10 +8,7 @@ import com.zgcenv.core.exception.BizException;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +40,8 @@ public class SecurityController {
     }
 
     @ApiOperation(value = "权限验证", notes = "根据用户token，访问的url和method判断用户是否有权限访问")
-    @PostMapping(value = "/auth/permission")
-    public Resp<?> decide(@RequestParam String url, @RequestParam String method, HttpServletRequest request) {
+    @RequestMapping(value = "/auth/permission", method = RequestMethod.POST)
+    public Resp<?> decide(HttpServletRequest request, @RequestParam String url, @RequestParam String method) {
         boolean decide = authenticationService.decide(new HttpServletRequestAuthWrapper(request, url, method));
         return Resp.success(decide);
     }

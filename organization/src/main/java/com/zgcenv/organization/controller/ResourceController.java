@@ -27,16 +27,15 @@ import java.util.List;
  * @Version 1.0
  **/
 
-@RestController
-@RequestMapping("/resource")
 @Api("resource")
+@RestController
 public class ResourceController {
     private static final Logger log = LoggerFactory.getLogger(ResourceController.class);
 
     @Resource
     private ResourceService resourceService;
 
-    @GetMapping(value = "/user")
+    @GetMapping(value = "/resource/user")
     public Resp queryByUsername(@RequestParam String username) {
         log.debug("query with username:{}", username);
         List<Resources> list = resourceService.findResourceByUsername(username);
@@ -47,14 +46,14 @@ public class ResourceController {
     @ApiResponses(
             @ApiResponse(code = 200, message = "处理成功", response = Resp.class)
     )
-    @GetMapping(value = "/all")
+    @GetMapping(value = "/resource/all")
     public Resp queryAll() {
         log.debug("query with all");
         return Resp.success(resourceService.findAll());
     }
 
-    @GetMapping(value = "/findResourceByUsername")
-    Resp<List<Resources>> findResourceByUsername(String username) {
+    @GetMapping(value = "/resource/findResourceByUsername")
+    Resp<List<Resources>> findResourceByUsername(@RequestParam String username) {
         if (StringUtils.isEmpty(username)) {
             return Resp.fail(RespCode.JWT_USER_INVALID);
         }

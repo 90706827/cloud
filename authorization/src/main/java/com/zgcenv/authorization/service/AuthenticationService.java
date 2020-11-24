@@ -54,7 +54,6 @@ public class AuthenticationService {
 
     /**
      * 根据用户所被授予的角色，查询到用户所拥有的资源
-     *
      * @param username
      * @return
      */

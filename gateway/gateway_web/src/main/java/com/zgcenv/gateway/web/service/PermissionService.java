@@ -17,14 +17,15 @@ public class PermissionService {
      * 由authentication-client模块提供签权的feign客户端
      */
     @Resource
-    private AuthorizationProvider authProvider;
+    private AuthorizationProvider authorizationProvider;
+
     @Resource
     private GatewayRouteProvider gatewayRouteProvider;
 
     @Cached(name = "gateway_auth::", key = "#authentication+#method+#url",
             cacheType = CacheType.LOCAL, expire = 10, timeUnit = TimeUnit.SECONDS, localLimit = 10000)
     public boolean permission(String username, String url, String method) {
-        return authProvider.permission(username, url, method).getResult();
+        return authorizationProvider.permission(username, url, method).getResult();
     }
 
     public UserVo findUserInfoByUsername(String username){

@@ -33,7 +33,7 @@ public interface OrganizationProvider {
     Resp<List<Resources>> resourceAll();
 
     @GetMapping(value = "/resource/findResourceByUsername")
-    Resp<List<Resources>> findResourceByUsername(String username);
+    Resp<List<Resources>> findResourceByUsername(@RequestParam("username")String username);
 
 }
 
