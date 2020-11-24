@@ -11,11 +11,29 @@
  Target Server Version : 80022
  File Encoding         : 65001
 
- Date: 24/11/2020 16:07:04
+ Date: 24/11/2020 17:54:20
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for cms_notices
+-- ----------------------------
+DROP TABLE IF EXISTS `cms_notices`;
+CREATE TABLE `cms_notices`  (
+  `id` bigint(0) NOT NULL,
+  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `title` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `datetime` datetime(0) NOT NULL,
+  `type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of cms_notices
+-- ----------------------------
+INSERT INTO `cms_notices` VALUES (101, 'https://gw.alipayobjects.com/zos/rmsportal/fcHMVNCjPOsbUGdEduuv.jpeg', '曲丽丽 评论了你', '2020-11-24 16:45:20', 'message');
 
 -- ----------------------------
 -- Table structure for gateway_route
