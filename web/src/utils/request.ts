@@ -5,7 +5,7 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
-const basicUrl = 'http://localhost:8080';
+const basicUrl = 'http://www.zgc.com';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -56,16 +56,21 @@ const request = extend({
 
 // request拦截器, 改变url 或 options.
 request.interceptors.request.use((url, options) => {
-  const token = localStorage.getItem('auth');
   const headers = {
-    // 'Content-Type': 'application/json',
+    'Content-Type': 'application/json',
     Accept: 'application/json',
-    Authorization: '',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': true,
-  };
+    'Access-Control-Allow-Origin': '*'
+  }
+  if (['post', 'put', 'delete'].indexOf(options.method) > -1) {
+    if (!(options.body instanceof FormData)) {
+      headers['Content-Type'] = 'application/json; charset=utf-8'
+      options.body = JSON.stringify(options.body)
+    }
+  }
+  const token = localStorage.getItem('react-token')
+  
   if (token) {
-    headers.Authorization = token;
+    headers.Authorization = `Bearer ${token}`
     return {
       url: `${basicUrl}${url}`,
       options: { ...options, interceptors: true, headers },
@@ -73,7 +78,7 @@ request.interceptors.request.use((url, options) => {
   }
   return {
     url: `${basicUrl}${url}`,
-    options: { ...options, interceptors: true },
+    options: { ...options, interceptors: true,headers },
   };
 });
 

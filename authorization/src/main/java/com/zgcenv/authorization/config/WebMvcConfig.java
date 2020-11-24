@@ -10,6 +10,9 @@ package com.zgcenv.authorization.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zgcenv.core.jackson.MyJacksonModule;
+import org.apache.catalina.filters.CorsFilter;
+import org.springframework.cloud.client.ConditionalOnBlockingDiscoveryEnabled;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -51,4 +54,5 @@ public class WebMvcConfig implements WebMvcConfigurer {
         // 解决swagger的js文件无法访问
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
+
 }

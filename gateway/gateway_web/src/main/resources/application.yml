@@ -35,6 +35,15 @@ spring:
             redis-rate-limiter.burstCapacity: 10   #令牌桶的容积
             rate-limiter: "#{@defaultRedisRateLimiter}"  #SPEL表达式去的对应的bean
             key-resolver: "#{@apiKeyResolver}" #SPEL表达式去的对应的bean
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "localhost:8000"
+            allowedMethods:
+              - GET
+              - POST
+              - OPTIONS
+              - PUT
 feign:
   okhttp:
     enabled: true
