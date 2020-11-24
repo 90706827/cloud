@@ -5,7 +5,7 @@
 import { extend } from 'umi-request';
 import { notification } from 'antd';
 
-const basicUrl = 'http://loclahost:8080';
+const basicUrl = 'http://localhost:8080';
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -61,6 +61,8 @@ request.interceptors.request.use((url, options) => {
     // 'Content-Type': 'application/json',
     Accept: 'application/json',
     Authorization: '',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Credentials': true,
   };
   if (token) {
     headers.Authorization = token;

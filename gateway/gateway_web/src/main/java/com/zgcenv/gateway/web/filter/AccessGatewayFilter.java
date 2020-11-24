@@ -68,6 +68,9 @@ public class AccessGatewayFilter implements GlobalFilter {
         String method = request.getMethodValue();
         String url = request.getPath().value();
         logger.info("url:{},method:{},headers:{}", url, method, request.getHeaders());
+
+        return chain.filter(exchange);
+        /**
         //不需要网关签权的url
         if (ignoreAuthentication(url)) {
             logger.info("路由拦截器，自定义放行：{}",url);
@@ -102,6 +105,7 @@ public class AccessGatewayFilter implements GlobalFilter {
             return chain.filter(exchange.mutate().request(builder.build()).build());
         }
         return unauthorized(exchange, RespCode.UN_AUTHORIZED);
+         */
     }
 
     private boolean ignoreAuthentication(String url) {
