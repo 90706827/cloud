@@ -17,7 +17,7 @@ import java.util.List;
  * @Date 2020-9-16
  * @Version 1.0
  **/
-@FeignClient(name = "organization", fallback = OrganizationProviderFallback.class, path = "/organization")
+@FeignClient(name = "organization", fallback = OrganizationProviderFallback.class)
 public interface OrganizationProvider {
 
     @GetMapping(value = "/user/findUserByUsername")

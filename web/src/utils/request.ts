@@ -4,6 +4,7 @@
  */
 import { extend } from 'umi-request';
 import { notification } from 'antd';
+import { history, getDvaApp } from 'umi';
 
 const basicUrl = 'http://service.zgc.com';
 const codeMessage = {
@@ -29,6 +30,7 @@ const codeMessage = {
  */
 const errorHandler = (error: { response: Response }): Response => {
   const { response } = error;
+  console.error('ERROR----------' + error);
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -59,18 +61,19 @@ request.interceptors.request.use((url, options) => {
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    'Access-Control-Allow-Origin': '*'
-  }
-  if (['post', 'put', 'delete'].indexOf(options.method) > -1) {
+    'Access-Control-Allow-Origin': '*',
+  };
+  console.error('METHOD----' + options.method);
+  if (['post', 'put', 'delete'].indexOf(String(options.method)) > -1) {
     if (!(options.body instanceof FormData)) {
-      headers['Content-Type'] = 'application/json; charset=utf-8'
-      options.body = JSON.stringify(options.body)
+      headers['Content-Type'] = 'application/json; charset=utf-8';
+      options.body = JSON.stringify(options.body);
     }
   }
-  const token = localStorage.getItem('react-token')
-  
+  const token = localStorage.getItem('react-token');
+
   if (token) {
-    headers.Authorization = `Bearer ${token}`
+    headers['Authorization'] = `Bearer ${token}`;
     return {
       url: `${basicUrl}${url}`,
       options: { ...options, interceptors: true, headers },
@@ -78,8 +81,39 @@ request.interceptors.request.use((url, options) => {
   }
   return {
     url: `${basicUrl}${url}`,
-    options: { ...options, interceptors: true,headers },
+    options: { ...options, interceptors: true, headers },
   };
 });
 
+// response拦截器, 处理response
+request.interceptors.response.use(async (response, options) => {
+  const { status } = response;
+  if (status === 401) {
+    notification.error({
+      message: '未登录或登录已过期，请重新登录。',
+      duration: 3000,
+    });
+    localStorage.clear();
+    setTimeout(() => {
+      // history.replace('/login');
+      // 跳转登录
+      getDvaApp()._store.dispatch({
+        type: 'login/logout',
+        payload: getDvaApp()._store.getState().global.keycloak,
+      });
+    }, 3000);
+    return false;
+  }
+
+  if (codeMessage[status]) {
+    notification.error({
+      message: `请求错误 ${status}`,
+      description: codeMessage[status],
+    });
+    return false;
+  }
+  const { result } = await response.clone().json();
+  console.error('RESPONSE-----' + JSON.stringify(result));
+  return result;
+});
 export default request;

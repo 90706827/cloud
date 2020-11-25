@@ -31,10 +31,10 @@ public class Resp<T> implements Serializable {
     private T result;
 
     @ApiModelProperty(value = "响应错误编码")
-    private Integer error;
+    private Integer code;
 
     @ApiModelProperty(value = "响应错误信息")
-    private String error_description;
+    private String message;
 
     @ApiModelProperty(value = "请求路径")
 
@@ -56,10 +56,10 @@ public class Resp<T> implements Serializable {
         this.timestamp = System.currentTimeMillis();
     }
 
-    public Resp(boolean success, int error, String error_description) {
+    public Resp(boolean success, int code, String message) {
         this.success = success;
-        this.error = error;
-        this.error_description = error_description;
+        this.code = code;
+        this.message = message;
         this.timestamp = System.currentTimeMillis();
     }
 
