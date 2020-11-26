@@ -57,7 +57,14 @@ const request = extend({
 });
 
 // request拦截器, 改变url 或 options.
-request.interceptors.request.use((url, options) => {
+request.interceptors.request.use((url: any, options: { method: string; body: string | FormData; }) => {
+
+  let token: string | null = sessionStorage.getItem('access_token');
+
+  if ((token === null || token.length === 0) && url !== '/authorization/oauth/token') {
+    window.location.href = '/user/login';
+    return {};
+  }
   const headers = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
@@ -70,14 +77,17 @@ request.interceptors.request.use((url, options) => {
       options.body = JSON.stringify(options.body);
     }
   }
-  const token = localStorage.getItem('react-token');
 
+  console.error('token:' + token)
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
     return {
       url: `${basicUrl}${url}`,
       options: { ...options, interceptors: true, headers },
     };
+  } else {
+    headers['Content-Type'] = 'application/x-www-form-urlencoded'
+    headers['Authorization'] = 'Basic dGVzdF9jbGllbnQ6dGVzdF9zZWNyZXQ='
   }
   return {
     url: `${basicUrl}${url}`,
@@ -86,7 +96,9 @@ request.interceptors.request.use((url, options) => {
 });
 
 // response拦截器, 处理response
-request.interceptors.response.use(async (response, options) => {
+request.interceptors.response.use(async (response: { clone?: any; status?: any; }, options: any) => {
+  const { result } = await response.clone().json();
+  console.error('RESPONSE-----' +   JSON.stringify(result));
   const { status } = response;
   if (status === 401) {
     notification.error({
@@ -104,15 +116,6 @@ request.interceptors.response.use(async (response, options) => {
     }, 3000);
     return false;
   }
-
-  if (codeMessage[status]) {
-    notification.error({
-      message: `请求错误 ${status}`,
-      description: codeMessage[status],
-    });
-    return false;
-  }
-  const { result } = await response.clone().json();
   console.error('RESPONSE-----' + JSON.stringify(result));
   return result;
 });

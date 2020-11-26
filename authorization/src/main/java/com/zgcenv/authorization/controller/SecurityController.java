@@ -6,12 +6,16 @@ import com.zgcenv.core.context.Resp;
 import com.zgcenv.core.context.RespCode;
 import com.zgcenv.core.exception.BizException;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.util.StringUtils;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Map;
 
 /**
  * @ClassName SecurityController
@@ -27,6 +31,8 @@ public class SecurityController {
     private ConsumerTokenServices consumerTokenServices;
     @Resource
     private AuthenticationService authenticationService;
+    @Resource
+    private TokenEndpoint tokenEndpoint;
 
     @DeleteMapping("signout")
     public Object signout(HttpServletRequest request) throws BizException {
@@ -44,6 +50,12 @@ public class SecurityController {
     public Resp<?> decide(HttpServletRequest request, @RequestParam String url, @RequestParam String method) {
         boolean decide = authenticationService.decide(new HttpServletRequestAuthWrapper(request, url, method));
         return Resp.success(decide);
+    }
+
+    @ApiOperation(value = "登录/oauth/token", notes = "重写/oauth/token请求，同意返回")
+    @RequestMapping(value = "/oauth/token", method = RequestMethod.POST)
+    public Resp<?> getToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+        return Resp.success(tokenEndpoint.postAccessToken(principal, parameters).getBody());
     }
 
 }

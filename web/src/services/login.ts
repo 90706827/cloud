@@ -1,16 +1,21 @@
 import request from '@/utils/request';
 
 export interface LoginParamsType {
-  userName: string;
+  username: string;
   password: string;
   mobile: string;
   captcha: string;
+  grant_type: string;
+  scope: string;
 }
 
 export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('/api/login/account', {
+  params.scope = 'read'
+  params.grant_type = 'password'
+  
+  return request('/authorization/oauth/token', {
     method: 'POST',
-    data: params,
+    params
   });
 }
 

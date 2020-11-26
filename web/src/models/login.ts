@@ -1,6 +1,6 @@
 import { stringify } from 'querystring';
 import { history, Reducer, Effect } from 'umi';
-
+import { message } from 'antd';
 import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
@@ -38,7 +38,10 @@ const Model: LoginModelType = {
         payload: response,
       });
       // Login successfully
-      if (response.status === 'ok') {
+      if (response) {
+        message.success('登录成功！'+ response);
+        sessionStorage.setItem('access_token',response.access_token);
+        sessionStorage.setItem('refresh_token',response.refresh_token);
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
         let { redirect } = params as { redirect: string };
@@ -57,7 +60,6 @@ const Model: LoginModelType = {
         history.replace(redirect || '/');
       }
     },
-
     logout() {
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note

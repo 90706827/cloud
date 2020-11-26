@@ -36,7 +36,7 @@ const Login: React.FC<LoginProps> = (props) => {
   const handleSubmit = (values: LoginParamsType) => {
     const { dispatch } = props;
     dispatch({
-      type: 'userAndlogin/login',
+      type: 'login/login',
       payload: {
         ...values,
         type,
@@ -52,7 +52,8 @@ const Login: React.FC<LoginProps> = (props) => {
           )}
 
           <UserName
-            name="userName"
+            name="username"
+            defaultValue="admin"
             placeholder="用户名: admin or user"
             rules={[
               {
@@ -63,6 +64,7 @@ const Login: React.FC<LoginProps> = (props) => {
           />
           <Password
             name="password"
+            defaultValue="password"
             placeholder="密码: ant.design"
             rules={[
               {
@@ -144,6 +146,6 @@ export default connect(
     };
   }) => ({
     userAndlogin,
-    submitting: loading.effects['userAndlogin/login'],
+    submitting: loading.effects['login/login'],
   }),
 )(Login);
