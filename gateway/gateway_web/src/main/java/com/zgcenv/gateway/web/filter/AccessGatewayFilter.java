@@ -69,13 +69,15 @@ public class AccessGatewayFilter implements GlobalFilter {
         String url = request.getPath().value();
         logger.info("url:{},method:{},headers:{}", url, method, request.getHeaders());
 
-         //不需要网关签权的url
+        //不需要网关签权的url
         if (ignoreAuthentication(url)) {
-            logger.info("路由拦截器，自定义放行：{}",url);
+            logger.info("路由拦截器，自定义放行：{}", url);
             return chain.filter(exchange);
         }
+        logger.info(String.valueOf(authentication.indexOf(BEARER)));
         // 测试环境放行token验证
-        if(StringUtils.isEmpty(authentication)){
+        if (StringUtils.isEmpty(authentication) || authentication.indexOf(BEARER) == 0) {
+            logger.info("Token为空 或者 Token存在放行：{}", url);
             return chain.filter(exchange);
         }
         if (StringUtils.isEmpty(authentication) || !authentication.startsWith(BEARER)) {

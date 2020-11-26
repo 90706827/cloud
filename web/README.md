@@ -2,6 +2,12 @@
 
 This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
 
+## yarn 慢
+
+```bash
+yarn config set registry 'https://registry.npm.taobao.org'
+```
+
 ## Environment Prepare
 
 https://ts.xcatliu.com/basics/declaration-files.html
@@ -9,6 +15,7 @@ https://ts.xcatliu.com/basics/declaration-files.html
 Install `node_modules`:
 
 ```bash
+
 npm install
 ```
 

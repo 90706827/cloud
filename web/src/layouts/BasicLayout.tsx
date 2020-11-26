@@ -100,6 +100,9 @@ const BasicLayout: React.FC<BasicLayoutProps> = (props) => {
    */
 
   useEffect(() => {
+    console.info(
+      '---------------------------BasicLayout.tsx--------------user/fetchCurrent---------------',
+    );
     if (dispatch) {
       dispatch({
         type: 'user/fetchCurrent',
