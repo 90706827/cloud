@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * request 网络请求工具
  * 更详细的 api 文档: https://github.com/umijs/umi-request
@@ -28,8 +29,11 @@ const codeMessage = {
  */
 const basicUrl = 'http://service.zgc.com';
 const errorHandler = (error) => {
-  const { response } = error;
-
+  const { response, data } = error;
+  notification.error({
+    description: '异常 response' + response,
+    message: '异常 data' + data,
+  });
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
     const { status, url } = response;
@@ -43,7 +47,6 @@ const errorHandler = (error) => {
       message: '网络异常',
     });
   }
-
   return response;
 };
 /**
@@ -60,54 +63,67 @@ const request = extend({
 
 // 请求拦截
 request.interceptors.request.use(async (url, options) => {
+
+  const token = sessionStorage.getItem('access_token');
+
+  if ((token === null || token.length === 0) && url !== '/authorization/oauth/token') {
+    window.location.href = '/user/login';
+    return {};
+  }
   const headers = {
     'Content-Type': 'application/json',
-    Accept: 'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Accept': 'application/json',
+    'Access-Control-Allow-Origin': '*',
+  };
+  // console.error(`'METHOD----'${options.method}`);
+  // if (['post', 'put', 'delete'].indexOf(String(options.method)) > -1) {
+  //   if (!(options.body instanceof FormData)) {
+  //     headers['Content-Type'] = 'application/json; charset=utf-8';
+  //     options.body = JSON.stringify(options.body);
+  //   }
+  // }
+
+  console.error('token:' + token);
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+    return {
+      url: `${basicUrl}${url}`,
+      options: { ...options, interceptors: true, headers },
+    };
+  } else {
+    headers['Accept'] = 'application/x-www-form-urlencoded';
+    headers['Content-Type'] = 'application/x-www-form-urlencoded';
+    headers.Authorization = 'Basic dGVzdF9jbGllbnQ6dGVzdF9zZWNyZXQ=';
   }
-  if (['post', 'put', 'delete'].indexOf(options.method) > -1) {
-    if (!(options.body instanceof FormData)) {
-      headers['Content-Type'] = 'application/json; charset=utf-8'
-      options.body = JSON.stringify(options.body)
-    }
-  }
-  const token = localStorage.getItem('react-token')
-  headers.Authorization = `Bearer ${token}`
   return {
-    url:`${basicUrl}${url}`,
-    options: { ...options, headers }
-  }
+    url: `${basicUrl}${url}`,
+    options: { ...options, interceptors: true, headers },
+  };
 })
 
 // 返回拦截
-request.interceptors.response.use(async res => {
-  const response = await res.clone();
+request.interceptors.response.use(async response => {
 
-
-  if (response.status === 401) {
+  const { status } = response;
+  if (status === 401) {
     notification.error({
-      message: response.message || '未登录或登录已过期，请重新登录。',
+      message: '未登录或登录已过期，请重新登录。',
       duration: 3000,
-    })
-    localStorage.clear()
+    });
+    localStorage.clear();
     setTimeout(() => {
+      // history.replace('/login');
       // 跳转登录
       getDvaApp()._store.dispatch({
         type: 'login/logout',
         payload: getDvaApp()._store.getState().global.keycloak,
-      })
+      });
     }, 3000);
-    return false
+    return false;
   }
-
-  if (codeMessage[response.status]) {
-    notification.error({
-      message: `请求错误 ${response.status}`,
-      description: codeMessage[response.status]
-    })
-    return false
-  }
-  return response;
+  const { result } = await response.clone().json();
+  console.error('RESPONSE-----' + JSON.stringify(result));
+  return result;
 });
 
 export default request;

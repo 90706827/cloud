@@ -1,6 +1,7 @@
 import request from '@/utils/request';
 export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
+  sessionStorage.removeItem('access_token');
+  return request('/authorization/oauth/token', {
     method: 'POST',
     data: params,
   });

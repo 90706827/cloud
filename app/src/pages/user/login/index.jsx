@@ -18,29 +18,30 @@ const LoginMessage = ({ content }) => (
 );
 
 const Login = (props) => {
-  const { userAndlogin = {}, submitting } = props;
-  const { status, type: loginType } = userAndlogin;
+  const { login = {}, submitting } = props;
+  const { status, type: loginType } = login;
   const [autoLogin, setAutoLogin] = useState(true);
-  const [type, setType] = useState('account');
+  const [grant_type, setType] = useState('password');
 
   const handleSubmit = (values) => {
     const { dispatch } = props;
     dispatch({
-      type: 'userAndlogin/login',
-      payload: { ...values, type },
+      type: 'login/login',
+      payload: { ...values, grant_type, scope: 'read' },
     });
   };
 
   return (
     <div className={styles.main}>
-      <LoginFrom activeKey={type} onTabChange={setType} onSubmit={handleSubmit}>
-        <Tab key="account" tab="账户密码登录">
-          {status === 'error' && loginType === 'account' && !submitting && (
+      <LoginFrom activeKey={grant_type} onTabChange={setType} onSubmit={handleSubmit}>
+        <Tab key="password" tab="账户密码登录">
+          {status === 'error' && loginType === 'password' && !submitting && (
             <LoginMessage content="账户或密码错误（admin/ant.design）" />
           )}
 
           <UserName
-            name="userName"
+            name="username"
+            defaultValue="admin"
             placeholder="用户名: admin or user"
             rules={[
               {
@@ -51,6 +52,7 @@ const Login = (props) => {
           />
           <Password
             name="password"
+            defaultValue="password"
             placeholder="密码: ant.design"
             rules={[
               {
@@ -119,7 +121,7 @@ const Login = (props) => {
   );
 };
 
-export default connect(({ userAndlogin, loading }) => ({
-  userAndlogin,
-  submitting: loading.effects['userAndlogin/login'],
+export default connect(({ login, loading }) => ({
+  login,
+  submitting: loading.effects['login/login'],
 }))(Login);

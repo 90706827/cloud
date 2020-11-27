@@ -4,7 +4,7 @@ export default {
     'Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.',
   'formandbasic-form.email.required': 'Please enter your email!',
   'formandbasic-form.email.wrong-format': 'The email address is in the wrong format!',
-  'formandbasic-form.userName.required': 'Please enter your userName!',
+  'formandbasic-form.username.required': 'Please enter your username!',
   'formandbasic-form.password.required': 'Please enter your password!',
   'formandbasic-form.password.twice': 'The passwords entered twice do not match!',
   'formandbasic-form.strength.msg':

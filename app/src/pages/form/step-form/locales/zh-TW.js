@@ -4,7 +4,7 @@ export default {
     '表單頁用於向用戶收集或驗證信息，基礎表單常見於數據項較少的表單場景。',
   'formandstep-form.email.required': '請輸入郵箱地址！',
   'formandstep-form.email.wrong-format': '郵箱地址格式錯誤！',
-  'formandstep-form.userName.required': '請輸入賬戶!',
+  'formandstep-form.username.required': '請輸入賬戶!',
   'formandstep-form.password.required': '請輸入密碼！',
   'formandstep-form.password.twice': '兩次輸入的密碼不匹配!',
   'formandstep-form.strength.msg': '請至少輸入 6 個字符。請不要使用容易被猜到的密碼。',

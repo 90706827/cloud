@@ -1,14 +1,14 @@
 const proSettings = {
-  navTheme: 'dark',
-  // 拂晓蓝
+  navTheme: 'light',
   primaryColor: '#1890ff',
-  layout: 'side',
+  layout: 'mix',
   contentWidth: 'Fluid',
-  fixedHeader: false,
+  fixedHeader: true,
   fixSiderbar: true,
   colorWeak: false,
   title: '综合管理平台',
   pwa: false,
   iconfontUrl: '',
+  splitMenus: false
 };
 export default proSettings;

@@ -1,5 +1,5 @@
 export default {
-  'userandregister-result.login.userName': 'userName',
+  'userandregister-result.login.username': 'username',
   'userandregister-result.login.password': 'password',
   'userandregister-result.login.message-invalid-credentials':
     'Invalid username or password（admin/ant.design）',

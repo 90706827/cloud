@@ -4,7 +4,7 @@ export default {
     '表单页用于向用户收集或验证信息，基础表单常见于数据项较少的表单场景。',
   'formandbasic-form.email.required': '请输入邮箱地址！',
   'formandbasic-form.email.wrong-format': '邮箱地址格式错误！',
-  'formandbasic-form.userName.required': '请输入用户名!',
+  'formandbasic-form.username.required': '请输入用户名!',
   'formandbasic-form.password.required': '请输入密码！',
   'formandbasic-form.password.twice': '两次输入的密码不匹配!',
   'formandbasic-form.strength.msg': '请至少输入 6 个字符。请不要使用容易被猜到的密码。',

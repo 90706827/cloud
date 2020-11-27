@@ -4,7 +4,7 @@ export default {
     'Form pages are used to collect or verify information to users, and basic forms are common in scenarios where there are fewer data items.',
   'formandstep-form.email.required': 'Por favor insira seu email!',
   'formandstep-form.email.wrong-format': 'O email está errado!',
-  'formandstep-form.userName.required': 'Por favor insira nome de usuário!',
+  'formandstep-form.username.required': 'Por favor insira nome de usuário!',
   'formandstep-form.password.required': 'Por favor insira sua senha!',
   'formandstep-form.password.twice': 'As senhas não estão iguais!',
   'formandstep-form.strength.msg':

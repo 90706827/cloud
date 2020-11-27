@@ -1,5 +1,5 @@
 export default {
-  'userandregister-result.login.userName': '賬戶',
+  'userandregister-result.login.username': '賬戶',
   'userandregister-result.login.password': '密碼',
   'userandregister-result.login.message-invalid-credentials': '賬戶或密碼錯誤（admin/ant.design）',
   'userandregister-result.login.message-invalid-verification-code': '驗證碼錯誤',

@@ -1,5 +1,5 @@
 export default {
-  'userandregister.login.userName': 'userName',
+  'userandregister.login.username': 'username',
   'userandregister.login.password': 'password',
   'userandregister.login.message-invalid-credentials':
     'Invalid username or password（admin/ant.design）',
@@ -21,7 +21,7 @@ export default {
   'userandregister.register-result.view-mailbox': 'View mailbox',
   'userandregister.email.required': 'Please enter your email!',
   'userandregister.email.wrong-format': 'The email address is in the wrong format!',
-  'userandregister.userName.required': 'Please enter your userName!',
+  'userandregister.username.required': 'Please enter your username!',
   'userandregister.password.required': 'Please enter your password!',
   'userandregister.password.twice': 'The passwords entered twice do not match!',
   'userandregister.strength.msg':

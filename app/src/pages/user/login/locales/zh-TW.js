@@ -1,5 +1,5 @@
 export default {
-  'userandlogin.login.userName': '賬戶',
+  'userandlogin.login.username': '賬戶',
   'userandlogin.login.password': '密碼',
   'userandlogin.login.message-invalid-credentials': '賬戶或密碼錯誤（admin/ant.design）',
   'userandlogin.login.message-invalid-verification-code': '驗證碼錯誤',
@@ -20,7 +20,7 @@ export default {
   'userandlogin.register-result.view-mailbox': '查看郵箱',
   'userandlogin.email.required': '請輸入郵箱地址！',
   'userandlogin.email.wrong-format': '郵箱地址格式錯誤！',
-  'userandlogin.userName.required': '請輸入賬戶!',
+  'userandlogin.username.required': '請輸入賬戶!',
   'userandlogin.password.required': '請輸入密碼！',
   'userandlogin.password.twice': '兩次輸入的密碼不匹配!',
   'userandlogin.strength.msg': '請至少輸入 6 個字符。請不要使用容易被猜到的密碼。',
