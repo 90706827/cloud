@@ -9,6 +9,6 @@ const proSettings = {
   title: '综合管理平台',
   pwa: false,
   iconfontUrl: '',
-  splitMenus: false
+  splitMenus: true
 };
 export default proSettings;

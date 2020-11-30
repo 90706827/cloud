@@ -17,10 +17,12 @@ const Model = {
         payload: response,
       }); // Login successfully
 
-      if (response.status === 'ok') {
+      // if (response.status === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
-        message.success('🎉 🎉 🎉  登录成功！');
+        message.success('登录成功！');
+        sessionStorage.setItem('access_token',response.access_token);
+        sessionStorage.setItem('refresh_token',response.refresh_token);
         let { redirect } = params;
 
         if (redirect) {
@@ -39,7 +41,7 @@ const Model = {
         }
 
         history.replace(redirect || '/');
-      }
+      // }
     },
 
     logout() {

@@ -2,7 +2,7 @@
   "name": "zgcenv",
   "version": "1.0.1",
   "private": true,
-  "autor": "90706827@163.com",
+  "author": "90706827@163.com",
   "description": "综合管理平台",
   "scripts": {
     "analyze": "cross-env ANALYZE=1 umi build",

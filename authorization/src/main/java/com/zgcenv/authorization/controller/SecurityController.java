@@ -6,6 +6,8 @@ import com.zgcenv.core.context.Resp;
 import com.zgcenv.core.context.RespCode;
 import com.zgcenv.core.exception.BizException;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
 import org.springframework.security.oauth2.provider.token.ConsumerTokenServices;
 import org.springframework.util.StringUtils;
@@ -55,7 +57,8 @@ public class SecurityController {
     @ApiOperation(value = "登录/oauth/token", notes = "重写/oauth/token请求，同意返回")
     @RequestMapping(value = "/oauth/token", method = RequestMethod.POST)
     public Resp<?> getToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
-        return Resp.success(tokenEndpoint.postAccessToken(principal, parameters).getBody());
+        ResponseEntity<OAuth2AccessToken> responseEntity = tokenEndpoint.postAccessToken(principal, parameters);
+        return Resp.success(responseEntity.getBody());
     }
 
 }

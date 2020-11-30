@@ -3,7 +3,7 @@ export async function fakeAccountLogin(params) {
   sessionStorage.removeItem('access_token');
   return request('/authorization/oauth/token', {
     method: 'POST',
-    data: params,
+    params,
   });
 }
 export async function getFakeCaptcha(mobile) {

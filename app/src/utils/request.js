@@ -7,6 +7,9 @@ import { extend } from 'umi-request';
 import { notification } from 'antd';
 import { getDvaApp } from 'umi'
 
+
+const fillter = [];
+const oauth = ['/authorization/oauth/token'];
 const codeMessage = {
   200: '服务器成功返回请求的数据。',
   201: '新建或修改数据成功。',
@@ -31,8 +34,8 @@ const basicUrl = 'http://service.zgc.com';
 const errorHandler = (error) => {
   const { response, data } = error;
   notification.error({
-    description: '异常 response' + response,
-    message: '异常 data' + data,
+    description: `异常 response${response}`,
+    message: `异常 data${data}`,
   });
   if (response && response.status) {
     const errorText = codeMessage[response.status] || response.statusText;
@@ -62,19 +65,46 @@ const request = extend({
 
 
 // 请求拦截
+// eslint-disable-next-line consistent-return
 request.interceptors.request.use(async (url, options) => {
 
-  const token = sessionStorage.getItem('access_token');
+  // 默认放行的请求 
+  if (fillter.indexOf(url) !== -1) {
+    console.info(`默认放行:${url}`)
+    const headers = {
+      'Content-Type': 'application/json;charset=utf-8',
+      // 'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*'
+    };
+    return {
+      url: `${basicUrl}${url}`,
+      options: { ...options, interceptors: true, headers },
+    };
+  }
+  // 权限放行
+  if (oauth.indexOf(url) !== -1) {
+    console.info(`权限放行:${url}`)
+    const headers = {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': '*',
+      'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+      'Authorization': 'Basic dGVzdF9jbGllbnQ6dGVzdF9zZWNyZXQ=',
+    };
+    return {
+      url: `${basicUrl}${url}`,
+      options: { ...options, interceptors: true, headers },
+    };
+  }
 
-  if ((token === null || token.length === 0) && url !== '/authorization/oauth/token') {
+  // 判断token是否存在 不存在跳转登录页面
+  const token = sessionStorage.getItem('access_token');
+  if ((token === null || token.length === 0)) {
+    console.info(`Token为空:${url}`)
     window.location.href = '/user/login';
     return {};
   }
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Origin': '*',
-  };
+
   // console.error(`'METHOD----'${options.method}`);
   // if (['post', 'put', 'delete'].indexOf(String(options.method)) > -1) {
   //   if (!(options.body instanceof FormData)) {
@@ -83,28 +113,27 @@ request.interceptors.request.use(async (url, options) => {
   //   }
   // }
 
-  console.error('token:' + token);
+  console.error(`token:${token}`);
   if (token) {
-    headers.Authorization = `Bearer ${token}`;
+    console.info(`Token不为空:${url}`)
+    const headers = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': `Bearer ${token}`
+    };
     return {
       url: `${basicUrl}${url}`,
       options: { ...options, interceptors: true, headers },
     };
-  } else {
-    headers['Accept'] = 'application/x-www-form-urlencoded';
-    headers['Content-Type'] = 'application/x-www-form-urlencoded';
-    headers.Authorization = 'Basic dGVzdF9jbGllbnQ6dGVzdF9zZWNyZXQ=';
   }
-  return {
-    url: `${basicUrl}${url}`,
-    options: { ...options, interceptors: true, headers },
-  };
-})
 
+});
 // 返回拦截
 request.interceptors.response.use(async response => {
 
   const { status } = response;
+  console.error(`RESPONSE-- status---${status}`);
   if (status === 401) {
     notification.error({
       message: '未登录或登录已过期，请重新登录。',
@@ -114,15 +143,17 @@ request.interceptors.response.use(async response => {
     setTimeout(() => {
       // history.replace('/login');
       // 跳转登录
+      // eslint-disable-next-line no-underscore-dangle
       getDvaApp()._store.dispatch({
         type: 'login/logout',
+        // eslint-disable-next-line no-underscore-dangle
         payload: getDvaApp()._store.getState().global.keycloak,
       });
     }, 3000);
     return false;
   }
   const { result } = await response.clone().json();
-  console.error('RESPONSE-----' + JSON.stringify(result));
+  console.error(`RESPONSE-----${JSON.stringify(result)}`);
   return result;
 });
 
