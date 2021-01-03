@@ -28,7 +28,7 @@ export interface TagSelectProps {
   };
   className?: string;
   Option?: TagSelectOptionProps;
-  children?: React.ReactElement<any> | React.ReactElement<any>[];
+  children?: React.ReactElement<TagSelectOption> | React.ReactElement<TagSelectOption>[];
 }
 
 const TagSelectOption: React.FC<TagSelectOptionProps> & {
@@ -59,8 +59,6 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
       selectAllText: '全部',
     },
   };
-
-  static Option: typeof TagSelectOption = TagSelectOption;
 
   static getDerivedStateFromProps(nextProps: TagSelectProps) {
     if ('value' in nextProps) {
@@ -97,7 +95,7 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
 
   getAllTags() {
     const { children } = this.props;
-    const childrenArray = React.Children.toArray(children) as React.ReactElement<any>[];
+    const childrenArray = React.Children.toArray(children) as React.ReactElement<TagSelectOption>[];
     const checkedTags = childrenArray
       .filter((child) => this.isTagSelectOption(child))
       .map((child) => child.props.value);
@@ -124,10 +122,12 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
     });
   };
 
-  isTagSelectOption = (node: any) =>
+  isTagSelectOption = (node: React.ReactElement<TagSelectOption, TagSelectOption>) =>
     node &&
     node.type &&
     (node.type.isTagSelectOption || node.type.displayName === 'TagSelectOption');
+
+  static Option: TagSelectOption = TagSelectOption;
 
   render() {
     const { value, expand } = this.state;
@@ -149,7 +149,7 @@ class TagSelect extends Component<TagSelectProps, TagSelectState> {
         )}
         {value &&
           children &&
-          React.Children.map(children, (child: React.ReactElement<any>) => {
+          React.Children.map(children, (child: React.ReactElement<TagSelectOption>) => {
             if (this.isTagSelectOption(child)) {
               return React.cloneElement(child, {
                 key: `tag-select-${child.props.value}`,

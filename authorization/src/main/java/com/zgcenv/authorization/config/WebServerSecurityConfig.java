@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.util.Base64Utils;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -85,6 +86,11 @@ public class WebServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     public static void main(String[] args) {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        System.out.println(passwordEncoder.encode("password"));
+        System.out.println(passwordEncoder.encode("admin"));
+
+        System.out.println(passwordEncoder.encode("test_secret"));
+
+        String authorization = "test_client test_secret";
+        System.out.println(Base64Utils.encodeToString(authorization.getBytes()));
     }
 }

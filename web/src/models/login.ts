@@ -1,17 +1,19 @@
 import { stringify } from 'querystring';
-import { history, Reducer, Effect } from 'umi';
-import { message } from 'antd';
+import type { Reducer, Effect } from 'umi';
+import { history } from 'umi';
+
 import { fakeAccountLogin } from '@/services/login';
 import { setAuthority } from '@/utils/authority';
 import { getPageQuery } from '@/utils/utils';
+import { message } from 'antd';
 
-export interface StateType {
+export type StateType = {
   status?: 'ok' | 'error';
   type?: string;
   currentAuthority?: 'user' | 'guest' | 'admin';
-}
+};
 
-export interface LoginModelType {
+export type LoginModelType = {
   namespace: string;
   state: StateType;
   effects: {
@@ -21,7 +23,7 @@ export interface LoginModelType {
   reducers: {
     changeLoginStatus: Reducer<StateType>;
   };
-}
+};
 
 const Model: LoginModelType = {
   namespace: 'login',
@@ -38,12 +40,10 @@ const Model: LoginModelType = {
         payload: response,
       });
       // Login successfully
-      if (response) {
-        message.success('登录成功！'+ response);
-        sessionStorage.setItem('access_token',response.access_token);
-        sessionStorage.setItem('refresh_token',response.refresh_token);
+      if (response.status === 'ok') {
         const urlParams = new URL(window.location.href);
         const params = getPageQuery();
+        message.success('🎉 🎉 🎉  登录成功！');
         let { redirect } = params as { redirect: string };
         if (redirect) {
           const redirectUrlParams = new URL(redirect);
@@ -60,6 +60,7 @@ const Model: LoginModelType = {
         history.replace(redirect || '/');
       }
     },
+
     logout() {
       const { redirect } = getPageQuery();
       // Note: There may be security issues, please note

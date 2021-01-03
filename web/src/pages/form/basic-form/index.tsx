@@ -12,7 +12,7 @@ const { TextArea } = Input;
 
 interface BasicFormProps {
   submitting: boolean;
-  dispatch: Dispatch;
+  dispatch: Dispatch<any>;
 }
 
 const BasicForm: FC<BasicFormProps> = (props) => {

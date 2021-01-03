@@ -20,12 +20,7 @@ const actions = (
   </div>
 );
 
-const RegisterResult: React.FC<RouteChildrenProps<
-  {},
-  {
-    account: string;
-  }
->> = ({ location }) => (
+const RegisterResult: React.FC<RouteChildrenProps> = ({ location }) => (
   <Result
     className={styles.registerResult}
     status="success"
@@ -33,7 +28,7 @@ const RegisterResult: React.FC<RouteChildrenProps<
       <div className={styles.title}>
         <FormattedMessage
           id="userandregister-result.register-result.msg"
-          values={{ email: location?.state?.account || 'AntDesign@example.com' }}
+          values={{ email: location.state ? location.state.account : 'AntDesign@example.com' }}
         />
       </div>
     }

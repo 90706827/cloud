@@ -12,7 +12,7 @@ const { Paragraph } = Typography;
 
 interface CardListProps {
   listAndcardList: StateType;
-  dispatch: Dispatch;
+  dispatch: Dispatch<any>;
   loading: boolean;
 }
 interface CardListState {

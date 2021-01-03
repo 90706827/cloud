@@ -15,7 +15,7 @@ const FormItem = Form.Item;
 const pageSize = 5;
 
 interface ArticlesProps {
-  dispatch: Dispatch;
+  dispatch: Dispatch<any>;
   listAndsearchAndarticles: StateType;
   loading: boolean;
 }
@@ -222,7 +222,7 @@ const Articles: FC<ArticlesProps> = ({ dispatch, listAndsearchAndarticles: { lis
                   <span>
                     <Tag>Ant Design</Tag>
                     <Tag>设计语言</Tag>
-                    <Tag>KONG</Tag>
+                    <Tag>蚂蚁金服</Tag>
                   </span>
                 }
               />

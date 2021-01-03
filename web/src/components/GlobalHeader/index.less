@@ -14,7 +14,7 @@
 .right {
   display: flex;
   float: right;
-  height: 48px;
+  height: 84px;
   margin-left: auto;
   overflow: hidden;
   .action {
@@ -63,6 +63,25 @@
     }
   }
 }
+:global {
+  .ant-pro-top-nav-header {
+    height: 84px;
+    line-height: 84px;
+  }
+  .ant-pro-top-nav-header-main {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 84px;
+      line-height: 84px;
+      padding-left: 16px;
+  }
+  .ant-pro-top-nav-header-menu {
+    flex: 1 1 0%;
+    height: 84px;
+    line-height: 84px;
+}
+}
 
 :global(.ant-pro-global-header) {
   .dark {
@@ -77,28 +96,6 @@
           color: rgba(255, 255, 255, 0.85);
         }
       }
-    }
-  }
-}
-
-@media only screen and (max-width: @screen-md) {
-  :global(.ant-divider-vertical) {
-    vertical-align: unset;
-  }
-  .name {
-    display: none;
-  }
-  .right {
-    position: absolute;
-    top: 0;
-    right: 12px;
-    .account {
-      .avatar {
-        margin-right: 0;
-      }
-    }
-    .search {
-      display: none;
     }
   }
 }

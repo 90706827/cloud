@@ -1,16 +1,16 @@
-import { DefaultFooter, MenuDataItem, getMenuData, getPageTitle } from '@ant-design/pro-layout';
+import type { MenuDataItem } from '@ant-design/pro-layout';
+import { DefaultFooter, getMenuData, getPageTitle } from '@ant-design/pro-layout';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
-import { Link, SelectLang, useIntl, ConnectProps, connect } from 'umi';
+import type { ConnectProps } from 'umi';
+import { Link, SelectLang, useIntl, connect, FormattedMessage } from 'umi';
 import React from 'react';
-import { ConnectState } from '@/models/connect';
+import type { ConnectState } from '@/models/connect';
 import logo from '../assets/logo.svg';
 import styles from './UserLayout.less';
 
-export interface UserLayoutProps extends Partial<ConnectProps> {
-  breadcrumbNameMap: {
-    [path: string]: MenuDataItem;
-  };
-}
+export type UserLayoutProps = {
+  breadcrumbNameMap: Record<string, MenuDataItem>;
+} & Partial<ConnectProps>;
 
 const UserLayout: React.FC<UserLayoutProps> = (props) => {
   const {
@@ -49,24 +49,19 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             <div className={styles.header}>
               <Link to="/">
                 <img alt="logo" className={styles.logo} src={logo} />
-                <span className={styles.title}>环责险综合管理平台</span>
+                <span className={styles.title}>Ant Design</span>
               </Link>
             </div>
-            <div className={styles.desc}>专业成就品质，品质成就辉煌。</div>
+            <div className={styles.desc}>
+              <FormattedMessage
+                id="pages.layouts.userLayout.title"
+                defaultMessage="九峰科技有限公司"
+              />
+            </div>
           </div>
           {children}
         </div>
-        <DefaultFooter
-          copyright={`${new Date().getFullYear()} 中关村至臻环保股份有限公司`}
-          links={[
-            {
-              key: '环责险综合管理服务平台',
-              title: '环责险综合管理服务平台',
-              href: 'http://www.china-elip.com',
-              blankTarget: true,
-            },
-          ]}
-        />
+        <DefaultFooter />
       </div>
     </HelmetProvider>
   );

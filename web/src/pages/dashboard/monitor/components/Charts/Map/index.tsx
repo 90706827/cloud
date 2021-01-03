@@ -125,7 +125,7 @@ export default class Map extends React.Component {
             }}
             filter={{
               field: 'cum_conf',
-              values: (v: number) => {
+              values: (v) => {
                 return v > 2000;
               },
             }}

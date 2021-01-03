@@ -1,6 +1,6 @@
 import { Settings as ProSettings } from '@ant-design/pro-layout';
 
-type DefaultSettings = ProSettings & {
+type DefaultSettings = Partial<ProSettings> & {
   pwa: boolean;
 };
 
@@ -8,15 +8,13 @@ const proSettings: DefaultSettings = {
   navTheme: 'light',
   // 拂晓蓝
   primaryColor: '#1890ff',
-  layout: 'side',
-  contentWidth: 'Fluid',
-  fixedHeader: false,
+  layout: 'top',
+  contentWidth: 'Fixed',
+  fixedHeader: true,
   fixSiderbar: true,
+  splitMenus: false,
   colorWeak: false,
-  menu: {
-    locale: true,
-  },
-  title: '环责险管理平台',
+  title: '九峰科技',
   pwa: false,
   iconfontUrl: '',
 };

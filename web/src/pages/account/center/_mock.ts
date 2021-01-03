@@ -103,9 +103,7 @@ function fakeList(count: number): ListItemDataType[] {
 }
 
 function getFakeList(req: Request, res: Response) {
-  const params = (req.query as any) as {
-    count: number;
-  };
+  const params = req.query;
 
   const count = params.count * 1 || 5;
 
@@ -117,7 +115,7 @@ export default {
   'GET  /api/fake_list': getFakeList,
   // 支持值为 Object 和 Array
   'GET  /api/currentUser': {
-    name: 'Serati Ma',
+    name: 'Serati Ma1',
     avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png',
     userid: '00000001',
     email: 'antdesign@alipay.com',

@@ -12,21 +12,15 @@ declare module '*.bmp';
 declare module '*.tiff';
 declare module 'omit.js';
 
-declare module 'bizcharts-plugin-slider';
-declare module 'mockjs';
-declare module '@antv/data-set';
-declare module '@antv/l7-react';
-
-declare module 'react-fittext';
-
 // google analytics interface
-interface GAFieldsObject {
+type GAFieldsObject = {
   eventCategory: string;
   eventAction: string;
   eventLabel?: string;
   eventValue?: number;
   nonInteraction?: boolean;
-}
+};
+
 interface Window {
   ga: (
     command: 'send',
@@ -36,7 +30,7 @@ interface Window {
   reloadAuthorized: () => void;
 }
 
-declare let ga: Function;
+declare let ga: () => void;
 
 // preview.pro.ant.design only do not use in your production ;
 // preview.pro.ant.design 专用环境变量，请不要在你的项目中使用它。

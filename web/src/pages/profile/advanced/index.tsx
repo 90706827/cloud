@@ -212,7 +212,7 @@ interface AdvancedState {
 }
 
 class Advanced extends Component<
-  { loading: boolean; profileAndadvanced: AdvancedProfileData; dispatch: Dispatch },
+  { loading: boolean; profileAndadvanced: AdvancedProfileData; dispatch: Dispatch<any> },
   AdvancedState
 > {
   public state: AdvancedState = {

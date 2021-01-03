@@ -38,7 +38,7 @@ const passwordProgressMap: {
 };
 
 interface RegisterProps {
-  dispatch: Dispatch;
+  dispatch: Dispatch<any>;
   userAndregister: StateType;
   submitting: boolean;
 }

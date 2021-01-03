@@ -48,7 +48,7 @@ const tableData = [
 ];
 
 interface AdvancedFormProps {
-  dispatch: Dispatch;
+  dispatch: Dispatch<any>;
   submitting: boolean;
 }
 

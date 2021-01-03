@@ -2,18 +2,23 @@
 import { defineConfig } from 'umi';
 import defaultSettings from './defaultSettings';
 import proxy from './proxy';
+
 const { REACT_APP_ENV } = process.env;
+
 export default defineConfig({
   hash: true,
   antd: {},
   dva: {
     hmr: true,
   },
+  history: {
+    type: 'browser',
+  },
   locale: {
     // default zh-CN
     default: 'zh-CN',
-    // default true, when it is true, will use `navigator.language` overwrite default
     antd: true,
+    // default true, when it is true, will use `navigator.language` overwrite default
     baseNavigator: true,
   },
   dynamicImport: {
@@ -34,7 +39,12 @@ export default defineConfig({
           routes: [
             {
               path: '/user/login',
-              component: './user/login',
+              name: 'login',
+              component: './User/login',
+            },
+            {
+              path: '/user',
+              redirect: '/user/login',
             },
             {
               name: 'register-result',
@@ -56,8 +66,6 @@ export default defineConfig({
         {
           path: '/',
           component: '../layouts/BasicLayout',
-          Routes: ['src/pages/Authorized'],
-          authority: ['admin', 'user'],
           routes: [
             {
               path: '/',
@@ -66,7 +74,6 @@ export default defineConfig({
             {
               path: '/dashboard',
               name: 'dashboard',
-              icon: 'dashboard',
               routes: [
                 {
                   path: '/',
@@ -74,19 +81,16 @@ export default defineConfig({
                 },
                 {
                   name: 'analysis',
-                  icon: 'dashboard',
                   path: '/dashboard/analysis',
                   component: './dashboard/analysis',
                 },
                 {
                   name: 'monitor',
-                  icon: 'smile',
                   path: '/dashboard/monitor',
                   component: './dashboard/monitor',
                 },
                 {
                   name: 'workplace',
-                  icon: 'smile',
                   path: '/dashboard/workplace',
                   component: './dashboard/workplace',
                 },
@@ -94,6 +98,8 @@ export default defineConfig({
             },
             {
               path: '/form',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               icon: 'form',
               name: 'form',
               routes: [
@@ -123,35 +129,35 @@ export default defineConfig({
             },
             {
               path: '/list',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               icon: 'table',
               name: 'list',
               routes: [
                 {
                   path: '/list/search',
                   name: 'search-list',
-                  icon: 'table',
                   component: './list/search',
                   routes: [
                     {
                       path: '/list/search',
-                      icon: 'table',
                       redirect: '/list/search/articles',
                     },
                     {
                       name: 'articles',
-                      icon: 'table',
+                      icon: 'smile',
                       path: '/list/search/articles',
                       component: './list/search/articles',
                     },
                     {
                       name: 'projects',
-                      icon: 'table',
+                      icon: 'smile',
                       path: '/list/search/projects',
                       component: './list/search/projects',
                     },
                     {
                       name: 'applications',
-                      icon: 'table',
+                      icon: 'smile',
                       path: '/list/search/applications',
                       component: './list/search/applications',
                     },
@@ -183,6 +189,8 @@ export default defineConfig({
             },
             {
               path: '/profile',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               name: 'profile',
               icon: 'profile',
               routes: [
@@ -206,6 +214,8 @@ export default defineConfig({
             },
             {
               name: 'result',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               icon: 'CheckCircleOutlined',
               path: '/result',
               routes: [
@@ -229,6 +239,8 @@ export default defineConfig({
             },
             {
               name: 'exception',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               icon: 'warning',
               path: '/exception',
               routes: [
@@ -258,6 +270,8 @@ export default defineConfig({
             },
             {
               name: 'account',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               icon: 'user',
               path: '/account',
               routes: [
@@ -281,6 +295,8 @@ export default defineConfig({
             },
             {
               name: 'editor',
+              Routes: ['src/pages/Authorized'],
+              authority: ['user'],
               icon: 'highlight',
               path: '/editor',
               routes: [
@@ -318,10 +334,8 @@ export default defineConfig({
   ],
   // Theme for antd: https://ant.design/docs/react/customize-theme-cn
   theme: {
-    // ...darkTheme,
     'primary-color': defaultSettings.primaryColor,
   },
-  // @ts-ignore
   title: false,
   ignoreMomentLocale: true,
   proxy: proxy[REACT_APP_ENV || 'dev'],

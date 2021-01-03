@@ -39,7 +39,7 @@ const operationTabList = [
 ];
 
 interface CenterProps extends RouteChildrenProps {
-  dispatch: Dispatch;
+  dispatch: Dispatch<any>;
   currentUser: Partial<CurrentUser>;
   currentUserLoading: boolean;
 }
