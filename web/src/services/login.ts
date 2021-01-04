@@ -1,19 +1,30 @@
-import request from '@/utils/request';
+import http from '@/utils/axios';
 
 export type LoginParamsType = {
-  userName: string;
+  username: string;
   password: string;
+};
+export type MobileLoginParamsType = {
   mobile: string;
-  captcha: string;
 };
 
-export async function fakeAccountLogin(params: LoginParamsType) {
-  return request('/api/login/account', {
+enum Api {
+  account_login = '/authorization/oauth/token'
+}
+
+export async function httpAccountLogin(params: LoginParamsType) {
+  localStorage.removeItem('Token');
+  return http.request({
+    url: Api.account_login,
     method: 'POST',
     data: params,
   });
 }
 
-export async function getFakeCaptcha(mobile: string) {
-  return request(`/api/login/captcha?mobile=${mobile}`);
+export async function apiGetVerifyCode(params: MobileLoginParamsType) {
+  return http.request({
+    url: Api.account_login,
+    method: 'POST',
+    data: params,
+  });
 }
