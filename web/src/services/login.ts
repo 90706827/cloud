@@ -1,6 +1,7 @@
 import http from '@/utils/axios';
+import qs from 'qs'
 
-export type LoginParamsType = {
+export interface LoginParamsType {
   username: string;
   password: string;
 };
@@ -9,7 +10,7 @@ export type MobileLoginParamsType = {
 };
 
 enum Api {
-  account_login = '/authorization/oauth/token'
+  account_login = '/authorization/oauth/login'
 }
 
 export async function httpAccountLogin(params: LoginParamsType) {
@@ -17,8 +18,11 @@ export async function httpAccountLogin(params: LoginParamsType) {
   return http.request({
     url: Api.account_login,
     method: 'POST',
-    data: params,
-  });
+    headers: {
+      'Authorization': 'Basic dGVzdF9jbGllbnQ6dGVzdF9zZWNyZXQ='
+    },
+    params,
+  }, { joinParamsToUrl: false });
 }
 
 export async function apiGetVerifyCode(params: MobileLoginParamsType) {
@@ -28,3 +32,12 @@ export async function apiGetVerifyCode(params: MobileLoginParamsType) {
     data: params,
   });
 }
+
+export async function getFakeCaptcha(mobile: string) {
+  return http.request({
+    url: Api.account_login,
+    method: 'POST',
+    data: { mobile: mobile },
+  });
+}
+

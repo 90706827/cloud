@@ -3,13 +3,15 @@
 import { VAxios } from './Axios';
 import { AxiosTransform } from './AxiosTransform';
 import axios, { AxiosResponse } from 'axios';
-import qs from 'qs'
 import { checkStatus } from './checkStatus';
 import { Modal, message as Message } from "antd";
-import { RequestEnum, ResultEnum, ContentTypeEnum } from '../HttpEnum';
-import { isString } from '@/utils/is/index';
+import { RequestEnum, ResultEnum, ContentTypeEnum } from '@/enums/HttpEnum';
+import { isString } from '@/utils/is';
 import { setObjToUrlParams } from '@/utils/UrlUtils'
+import { formatRequestDate } from '@/utils/utils'
 import { RequestOptions, Result } from './types';
+import qs from 'qs';
+
 const isDev = process.env.NODE_ENV === 'development'
 /**
  * @description: 数据处理，方便区分多种处理方式
@@ -91,26 +93,31 @@ const transform: AxiosTransform = {
     beforeRequestHook: (config, options) => {
         const { apiUrl, joinPrefix, joinParamsToUrl, formatDate, isParseToJson } = options;
 
-        config.url = isDev ? `/api${config.url}` : `${apiUrl || ''}${config.url}`;
+        config.url = isDev ? `${config.url}` : `${apiUrl || ''}${config.url}`;
+        const params = config.params || {};
 
+        console.error('config.method:', config.method)
         if (config.method === RequestEnum.GET) {
             const now = new Date().getTime();
-            if (!isString(config.params)) {
+            if (!isString(params)) {
                 config.data = {
                     // 给 get 请求加上时间戳参数，避免从缓存中拿数据。
-                    params: Object.assign(config.params || {}, {
+                    params: Object.assign(params || {}, {
                         _t: now,
                     }),
                 };
             } else {
                 // 兼容restful风格
-                config.url = config.url + config.params + `?_t=${now}`;
+                config.url = config.url + params + `?_t=${now}`;
                 config.params = {};
             }
         } else {
-            if (!isString(config.params)) {
-                config.data = config.params;
+            console.error('!isString(params):', !isString(params))
+            if (!isString(params)) {
+                formatDate && formatRequestDate(params);
+                config.data = params;
                 config.params = {};
+                console.error('joinParamsToUrl:', joinParamsToUrl)
                 if (joinParamsToUrl) {
                     config.url = setObjToUrlParams(config.url as string, config.data);
                 }
@@ -120,7 +127,8 @@ const transform: AxiosTransform = {
                 config.params = {};
             }
             // 'a[]=b&a[]=c'
-            if (!isParseToJson) {
+            console.error('isParseToJson:', isParseToJson)
+            if (isParseToJson) {
                 config.params = qs.stringify(config.params, { arrayFormat: 'brackets' })
                 config.data = qs.stringify(config.data, { arrayFormat: 'brackets' })
             }
@@ -178,10 +186,10 @@ const transform: AxiosTransform = {
 const Axios = new VAxios({
     timeout: 60000,
     // 基础接口地址
-    // baseURL: globSetting.apiUrl,
+    baseURL: 'http://service.zgc.com',
     // 接口可能会有通用的地址部分，可以统一抽取出来
     // prefixUrl: prefix,
-    headers: { 'Content-Type': ContentTypeEnum.FORM_URLENCODED },
+    headers: { 'Content-Type': ContentTypeEnum.JSON },
     // 数据处理方式
     transform,
     // 配置项，下面的选项都可以在独立的接口请求中覆盖
@@ -196,8 +204,9 @@ const Axios = new VAxios({
         formatDate: true,
         // 消息提示类型
         errorMessageMode: 'none',
+        isParseToJson: false,
         // 接口地址
-        apiUrl: 'http://service.zgc.com',
+        apiUrl: 'http://service.zgcenv.com',
     },
     withCredentials: false
 });

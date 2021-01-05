@@ -133,9 +133,9 @@ export class VAxios {
     let conf: AxiosRequestConfig = cloneDeep(config);
     const transform = this.getTransform();
 
-    const { requestOptions } = this.options;
+    // const { requestOptions } = this.options;
 
-    const opt: RequestOptions = Object.assign({}, requestOptions, options);
+    const opt: RequestOptions = Object.assign({},  options);
 
     const { beforeRequestHook, requestCatch, transformRequestData } = transform || {};
     if (beforeRequestHook && isFunction(beforeRequestHook)) {

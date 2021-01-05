@@ -10,14 +10,14 @@ export interface CreateAxiosOptions extends AxiosRequestConfig {
 export interface RequestOptions {
   // 请求参数拼接到url
   joinParamsToUrl?: boolean;
-  // 格式化请求参数时间
-  formatDate?: boolean;
   //  是否处理请求结果
   isTransformRequestResult?: boolean;
   // 是否显示提示信息
   isShowMessage?: boolean;
   // 是否解析成JSON
   isParseToJson?: boolean;
+  // 格式化请求参数时间
+  formatDate?: boolean;
   // 成功的文本信息
   successMessageText?: string;
   // 是否显示成功信息
