@@ -1,5 +1,6 @@
 package com.zgcenv.authorization.controller;
 
+import com.zgcenv.authorization.Login;
 import com.zgcenv.authorization.service.AuthenticationService;
 import com.zgcenv.authorization.utils.HttpServletRequestAuthWrapper;
 import com.zgcenv.core.context.Resp;
@@ -53,12 +54,17 @@ public class SecurityController {
         boolean decide = authenticationService.decide(new HttpServletRequestAuthWrapper(request, url, method));
         return Resp.success(decide);
     }
-
+//@RequestParam Map<String, String> parameters
     @ApiOperation(value = "登录/oauth/token", notes = "重写/oauth/token请求，同意返回")
     @RequestMapping(value = "/oauth/token", method = RequestMethod.POST)
-    public Resp<?> getToken(Principal principal, @RequestParam Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
+    public Resp<?> getToken(Principal principal, @RequestBody Map<String, String> parameters) throws HttpRequestMethodNotSupportedException {
         ResponseEntity<OAuth2AccessToken> responseEntity = tokenEndpoint.postAccessToken(principal, parameters);
         return Resp.success(responseEntity.getBody());
     }
 
+
+    @RequestMapping(value = "/oauth/login", method = RequestMethod.POST)
+    public Resp<?> login(HttpServletRequest request, @RequestBody Login login) throws HttpRequestMethodNotSupportedException {
+        return Resp.success(login);
+    }
 }
