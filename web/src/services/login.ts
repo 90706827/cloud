@@ -1,20 +1,24 @@
 import http from '@/utils/axios';
-import qs from 'qs'
 
 export interface LoginParamsType {
   username: string;
   password: string;
+  grant_type: string;
+  scope: string;
+
 };
 export type MobileLoginParamsType = {
   mobile: string;
 };
 
 enum Api {
-  account_login = '/authorization/oauth/login'
+  account_login = '/authorization/oauth/token'
 }
 
 export async function httpAccountLogin(params: LoginParamsType) {
   localStorage.removeItem('Token');
+  params.grant_type = 'password';
+  params.scope = 'read';
   return http.request({
     url: Api.account_login,
     method: 'POST',
@@ -22,7 +26,7 @@ export async function httpAccountLogin(params: LoginParamsType) {
       'Authorization': 'Basic dGVzdF9jbGllbnQ6dGVzdF9zZWNyZXQ='
     },
     params,
-  }, { joinParamsToUrl: false });
+  }, { joinParamsToUrl: true });
 }
 
 export async function apiGetVerifyCode(params: MobileLoginParamsType) {

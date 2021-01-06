@@ -23,21 +23,18 @@ const transform: AxiosTransform = {
      */
     transformRequestData: (res: AxiosResponse<Result>, options: RequestOptions) => {
         const { isTransformRequestResult, isShowMessage = true, isShowErrorMessage, isShowSuccessMessage, successMessageText, errorMessageText } = options;
-
         const reject = Promise.reject
-
         const { data } = res;
         //  这里 code，result，message为 后台统一的字段，需要在 types.ts内修改为项目自己的接口返回格式
-        const { code, result, message } = data;
+        const { success, code, result, message, } = data;
         // 请求成功
-        const hasSuccess = data && Reflect.has(data, 'code') && code === ResultEnum.SUCCESS;
         // 是否显示提示信息
         if (isShowMessage) {
-            if (hasSuccess && (successMessageText || isShowSuccessMessage)) { // 是否显示自定义信息提示
+            if (success && (successMessageText || isShowSuccessMessage)) { // 是否显示自定义信息提示
                 Message.success(successMessageText || message || '操作成功！')
-            } else if (!hasSuccess && (errorMessageText || isShowErrorMessage)) { // 是否显示自定义信息提示
+            } else if (!success && (errorMessageText || isShowErrorMessage)) { // 是否显示自定义信息提示
                 Message.error(message || errorMessageText || '操作失败！')
-            } else if (!hasSuccess && options.errorMessageMode === 'modal') { // errorMessageMode=‘custom-modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
+            } else if (!success && options.errorMessageMode === 'modal') { // errorMessageMode=‘custom-modal’的时候会显示modal错误弹窗，而不是消息提示，用于一些比较重要的错误
                 Modal.confirm({ title: '错误提示', content: message });
             }
         }
@@ -52,23 +49,6 @@ const transform: AxiosTransform = {
             return reject(data);
         }
 
-        // 接口请求成功，直接返回结果
-        if (code === ResultEnum.SUCCESS) {
-            return result;
-        }
-        // 接口请求错误，统一提示错误信息
-        if (code === ResultEnum.ERROR) {
-            if (message) {
-                Message.error(data.message);
-                Promise.reject(new Error(message));
-            } else {
-                const msg = '操作失败,系统异常!';
-                Message.error(msg);
-                Promise.reject(new Error(msg));
-            }
-            return reject();
-        }
-
         // 登录超时
         if (code === ResultEnum.TIMEOUT) {
             // 到登录页
@@ -81,12 +61,21 @@ const transform: AxiosTransform = {
             return reject(new Error(timeoutMsg))
         }
 
-        // 这里逻辑可以根据项目进行修改
-        if (!hasSuccess) {
-            return reject(new Error(message));
+        // 接口请求成功，直接返回结果
+        if (success) {
+            return result;
+        } else {
+            // 接口请求错误，统一提示错误信息
+            if (message) {
+                Message.error(data.message);
+                Promise.reject(new Error(message));
+            } else {
+                const msg = '操作失败,系统异常!';
+                Message.error(msg);
+                Promise.reject(new Error(msg));
+            }
+            return reject();
         }
-
-        return data;
     },
 
     // 请求之前处理config

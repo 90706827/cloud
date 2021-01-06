@@ -77,7 +77,7 @@ const Login: React.FC<LoginProps> = (props) => {
             key="account"
             tab={intl.formatMessage({
               id: 'pages.login.accountLogin.tab',
-              defaultMessage: '账户密码登录',
+              defaultMessage: '账户登录',
             })}
           />
           <Tabs.TabPane

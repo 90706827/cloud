@@ -14,7 +14,7 @@ const proSettings: DefaultSettings = {
   fixSiderbar: true,
   splitMenus: false,
   colorWeak: false,
-  title: '九峰科技',
+  title: '中关村至臻环保',
   pwa: false,
   iconfontUrl: '',
 };

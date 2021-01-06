@@ -55,7 +55,7 @@ const UserLayout: React.FC<UserLayoutProps> = (props) => {
             <div className={styles.desc}>
               <FormattedMessage
                 id="pages.layouts.userLayout.title"
-                defaultMessage="九峰科技有限公司"
+                defaultMessage="中关村至臻环保"
               />
             </div>
           </div>

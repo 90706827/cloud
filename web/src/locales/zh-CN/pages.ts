@@ -1,6 +1,6 @@
 export default {
-  'pages.layouts.userLayout.title': '九峰科技有限公司',
-  'pages.login.accountLogin.tab': '账户密码登录',
+  'pages.layouts.userLayout.title': '中关村至臻环保',
+  'pages.login.accountLogin.tab': '账户登录',
   'pages.login.accountLogin.errorMessage': '错误的用户名和密码',
   'pages.login.username.placeholder': '用户名',
   'pages.login.username.required': '用户名是必填项！',
