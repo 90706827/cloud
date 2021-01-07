@@ -18,6 +18,7 @@ import type { LoginParamsType } from '@/services/login';
 import type { ConnectState } from '@/models/connect';
 
 import styles from './index.less';
+import { ImageCaptcha } from './ImageCaptcha';
 
 export type LoginProps = {
   dispatch: Dispatch;
@@ -143,6 +144,38 @@ const Login: React.FC<LoginProps> = (props) => {
                 },
               ]}
             />
+            <ProFormText
+              fieldProps={{
+                size: 'large',
+                prefix: <MobileTwoTone className={styles.prefixIcon} />,
+              }}
+              name="mobile"
+              placeholder={intl.formatMessage({
+                id: 'pages.login.phoneNumber.placeholder',
+                defaultMessage: '手机号',
+              })}
+              rules={[
+                {
+                  required: true,
+                  message: (
+                    <FormattedMessage
+                      id="pages.login.phoneNumber.required"
+                      defaultMessage="请输入手机号！"
+                    />
+                  ),
+                },
+                {
+                  pattern: /^1\d{10}$/,
+                  message: (
+                    <FormattedMessage
+                      id="pages.login.phoneNumber.invalid"
+                      defaultMessage="手机号格式错误！"
+                    />
+                  ),
+                },
+              ]}
+            />
+            <ImageCaptcha />
           </>
         )}
 

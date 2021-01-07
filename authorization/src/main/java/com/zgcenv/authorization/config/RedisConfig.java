@@ -1,6 +1,7 @@
 package com.zgcenv.authorization.config;
 
 import com.alibaba.fastjson.support.spring.FastJsonRedisSerializer;
+import com.zgcenv.core.redis.RedisService;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.context.annotation.Bean;
@@ -41,5 +42,10 @@ public class RedisConfig {
         template.setEnableTransactionSupport(true);
         template.setConnectionFactory(redisConnectionFactory);
         return template;
+    }
+
+    @Bean
+    public RedisService redisService(RedisTemplate redisTemplate){
+        return new RedisService(redisTemplate);
     }
 }
