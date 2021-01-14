@@ -70,7 +70,6 @@ public class WebServerSecurityConfig extends WebSecurityConfigurerAdapter {
 
     /**
      * 创建手机验证码登陆的AuthenticationProvider
-     *
      * @return mobileAuthenticationProvider
      */
     @Bean
